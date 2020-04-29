@@ -49,7 +49,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String!
       date: Date
       desc: String
-      type: string
+      type: String
       audio: AudioContext
       video: VideoContext
       image: ImageContext
@@ -91,10 +91,11 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
     const renderer = node.internal.type === `Mdx` ? 'mdx' : 'remark'
 
     let urlPath
+    let slug
 
     switch (source) {
       case 'posts': {
-        const slug = slugify(node.frontmatter.title)
+        slug = slugify(node.frontmatter.title)
         const date = new Date(node.frontmatter.date)
         urlPath = formatPostUrl(slug, date)
         break
@@ -181,7 +182,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
-  const posts = result.data.allMdx.edges.filter(
+  const posts = result.data.allMarkdownRemark.edges.filter(
     ({ node }) => node.fields.source === 'posts'
   )
 
