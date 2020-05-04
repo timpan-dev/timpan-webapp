@@ -1,12 +1,39 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
+import Layout from '~/components/Layout'
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale'
+import { PostsForPageQuery, IPost } from '~/types'
+import { formatPostFromData } from '~/utils/post'
 
 interface IPostListTemplateProps {
-  data: any
+  data: PostsForPageQuery
 }
 
 const PostListTemplate: React.FC<IPostListTemplateProps> = ({ data }) => {
-  return <h1>PostList</h1>
+  const posts = data.allMarkdownRemark.edges.map(({ node }, index) => formatPostFromData(node, index))
+
+  return (
+    <Layout>
+      {posts.map((post: IPost, index) => {
+        return (
+          <article key={index}>
+            <header>
+              <Link to={post.urlPath}>
+                <h2>{post.title}</h2>
+              </Link>
+              <h3>
+                {format(new Date(post.date), "d MMMM, yyyy", { locale: ru })}
+              </h3>
+            </header>
+            <main>
+              <div dangerouslySetInnerHTML={{ __html: post.body }} />
+            </main>
+          </article>
+        )
+      })}
+    </Layout>
+  )
 }
 
 export default PostListTemplate
@@ -23,18 +50,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          id
-          frontmatter {
-            title
-            date
-            desc
-          }
-          fields {
-            urlPath
-            source
-            renderer
-            slug
-          }
+          ...PostDataFragment
         }
       }
     }

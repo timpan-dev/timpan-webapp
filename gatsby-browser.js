@@ -1,7 +1,11 @@
-/**
- * Implement Gatsby's Browser APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/browser-apis/
- */
+import AppRoot from './src/AppRoot'
+import googleFontLink from './src/gatsby/googleFontLink'
 
-// You can delete this file if you're not using it
+export const onInitialClientRender = () => {
+  const link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.href = googleFontLink
+  document.head.appendChild(link)
+}
+
+export const wrapRootElement = AppRoot

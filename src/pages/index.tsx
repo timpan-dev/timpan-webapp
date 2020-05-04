@@ -2,32 +2,34 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import Layout from '~/components/Layout'
 import { format } from 'date-fns'
-import { ru } from "date-fns/locale"
+import { ru } from 'date-fns/locale'
+import { PostsForIndexPageQuery, IPost } from '~/types'
+import { formatPostFromData } from '~/utils/post'
 
 interface IIndexPageProps {
-  data: any
+  data: PostsForIndexPageQuery
 }
 
 const IndexPage: React.FC<IIndexPageProps> = ({ data }) => {
-  const posts = data.allMarkdownRemark.edges.map((edge: any, index: number) => {
-    const {id, frontmatter, fields, html} = edge.node
-    return (
-      <article key={index}>
-        <header>
-          <Link to={fields.urlPath}>
-            <h2>{frontmatter.title}</h2>
-          </Link>
-          <h3>{format(new Date (frontmatter.date), 'd MMMM, yyyy', {locale: ru})}</h3>
-        </header>
-        <main>
-          <div dangerouslySetInnerHTML={{ __html: html }} />
-        </main>
-      </article>
-    )
-  })
-  return <Layout>
-    {posts}
-  </Layout>
+  const posts = data.allMarkdownRemark.edges.map(({ node }, index) => formatPostFromData(node, index))
+
+  return <Layout>{
+    posts.map((post: IPost, index) => {
+      return (
+        <article key={index}>
+          <header>
+            <Link to={post.urlPath}>
+              <h2>{post.title}</h2>
+            </Link>
+            <h3>{format(new Date(post.date), "d MMMM, yyyy", { locale: ru })}</h3>
+          </header>
+          <main>
+            <div dangerouslySetInnerHTML={{ __html: post.body }} />
+          </main>
+        </article>
+      )
+    })
+  }</Layout>
 }
 
 export default IndexPage
@@ -65,7 +67,6 @@ export const query = graphql`
             urlPath
             source
             renderer
-            slug
           }
         }
       }

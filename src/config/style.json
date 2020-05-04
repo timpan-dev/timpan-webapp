@@ -1,0 +1,25 @@
+{
+  "baseFontSize": 18,
+  "baseLineHeight": 1.6,
+  "scaleRatio": 2.4,
+  "headerFontFamily": [
+    "Roboto",
+    "sans-serif"
+  ],
+  "bodyFontFamily": [
+    "Roboto",
+    "sans-serif"
+  ],
+  "headerWeight": 700,
+  "bodyWeight": 300,
+  "boldWeight": 700,
+  "contentWidth": 580,
+  "sidebarWidth": 284,
+  "gapWidth": 18,
+  "primaryColor": "#E2AA2C",
+  "secondaryColor": "#772F1A",
+  "bodyColor": "hsl(0, 0%, 20%)",
+  "headerColor": "hsl(0, 0%, 20%)",
+  "appBarHeight": 70,
+  "navBarWidth": 250
+}

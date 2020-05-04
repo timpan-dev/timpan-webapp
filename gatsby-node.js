@@ -16,7 +16,6 @@ exports.createSchemaCustomization = ({ actions }) => {
     type FieldsRemark {
       urlPath: String!
       source: String!
-      slug: String
       renderer: String!
     }
 
@@ -63,7 +62,6 @@ exports.createSchemaCustomization = ({ actions }) => {
     type FieldsMdx {
       urlPath: String!
       source: String!
-      slug: String
       renderer: String!
     }
 
@@ -120,11 +118,11 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
       value: urlPath,
     })
 
-    createNodeField({
-      node,
-      name: `slug`,
-      value: slug ? slug : null
-    })
+    // createNodeField({
+    //   node,
+    //   name: `slug`,
+    //   value: slug ? slug : null
+    // })
 
     createNodeField({
       node,
@@ -153,7 +151,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             fields {
               urlPath
               source
-              slug
               renderer
             }
           }
@@ -168,7 +165,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             fields {
               urlPath
               source
-              slug
               renderer
             }
           }

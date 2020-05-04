@@ -6,14 +6,17 @@
   "author": "Ксения Волкова <ksan4oys@gmail.com>",
   "dependencies": {
     "@mdx-js/mdx": "^1.5.8",
-    "@mdx-js/react": "^1.5.8",
+    "@mdx-js/react": "^1.6.1",
+    "@types/styled-components": "^5.1.0",
     "date-fns": "^2.12.0",
     "gatsby": "^2.20.12",
     "gatsby-image": "^2.3.1",
+    "gatsby-plugin-graphql-codegen": "^2.7.1",
     "gatsby-plugin-manifest": "^2.3.3",
     "gatsby-plugin-mdx": "^1.1.6",
     "gatsby-plugin-offline": "^3.1.2",
     "gatsby-plugin-react-helmet": "^3.2.1",
+    "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-root-import": "^2.0.5",
     "gatsby-plugin-sharp": "^2.5.3",
     "gatsby-plugin-typescript": "^2.3.1",
@@ -22,6 +25,7 @@
     "gatsby-source-filesystem": "^2.2.2",
     "gatsby-transformer-remark": "^2.7.5",
     "gatsby-transformer-sharp": "^2.4.3",
+    "polished": "^3.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -31,6 +35,7 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
+    "@types/mdx-js__react": "^1.5.1",
     "@types/node": "^13.11.1",
     "@types/react": "^16.9.33",
     "@types/react-dom": "^16.9.6",
@@ -48,6 +53,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "deploy": "firebase deploy",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   }
 }

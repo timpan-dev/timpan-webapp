@@ -67,3 +67,7 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+./src/content
+./src/content/**/*
+./graphqlTypes.d.ts
