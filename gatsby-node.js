@@ -211,7 +211,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   
   let numPages = Math.ceil(posts.length / postsPerPage)
   for (let i = 0; i < numPages; i++) {
-    let path = i === 0 ? `/blog` : `/blog/page-${i + 1}`
+    let path = i === 0 ? `/` : `/${i + 1}`
     createPage({
       path,
       component: resolve('./src/templates/posts.tsx'),

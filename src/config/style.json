@@ -18,6 +18,7 @@
   "gapWidth": 18,
   "primaryColor": "#E2AA2C",
   "secondaryColor": "#772F1A",
+  "linkColor": "#984444",
   "bodyColor": "hsl(0, 0%, 20%)",
   "headerColor": "hsl(0, 0%, 20%)",
   "appBarHeight": 70,

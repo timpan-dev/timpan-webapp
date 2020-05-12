@@ -3501,19 +3501,10 @@ export type VideoContextFilterInput = {
   audio?: Maybe<FileFilterInput>;
 };
 
-export type PostsForIndexPageQueryVariables = {};
+export type GetHeadBackgroundQueryVariables = {};
 
 
-export type PostsForIndexPageQuery = { allMarkdownRemark: { edges: Array<{ node: (
-        Pick<MarkdownRemark, 'id' | 'html'>
-        & { frontmatter?: Maybe<(
-          Pick<FrontmatterRemark, 'title' | 'date' | 'desc' | 'type'>
-          & { image?: Maybe<{ files?: Maybe<Array<Maybe<(
-              Pick<ImageDesc, 'title'>
-              & { source?: Maybe<Pick<File, 'publicURL'>> }
-            )>>> }>, video?: Maybe<Pick<VideoContext, 'id'>> }
-        )>, fields?: Maybe<Pick<FieldsRemark, 'urlPath' | 'source' | 'renderer'>> }
-      ) }> } };
+export type GetHeadBackgroundQuery = { file?: Maybe<{ childImageSharp?: Maybe<{ fixed?: Maybe<GatsbyImageSharpFixedFragment> }> }> };
 
 export type PageByUrlPathQueryVariables = {
   urlPath: Scalars['String'];

@@ -114,17 +114,17 @@ module.exports = {
         ]
       }
     },
-    {
-      resolve: `gatsby-plugin-graphql-codegen`,
-      options: {
-        fileName: `graphqlTypes.d.ts`,
-        documentPaths: [
-          "./src/**/*.{ts,tsx}",
-          "./node_modules/gatsby-*/**/*.js"
-        ],
-        codegenDelay: 5000
-      }
-    },
+    // {
+    //   resolve: `gatsby-plugin-graphql-codegen`,
+    //   options: {
+    //     fileName: `graphqlTypes.d.ts`,
+    //     documentPaths: [
+    //       "./src/**/*.{ts,tsx}",
+    //       "./node_modules/gatsby-*/**/*.js"
+    //     ],
+    //     codegenDelay: 5000
+    //   }
+    // },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {

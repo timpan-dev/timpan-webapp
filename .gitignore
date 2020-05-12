@@ -71,3 +71,5 @@ yarn-error.log
 ./src/content
 ./src/content/**/*
 ./graphqlTypes.d.ts
+
+__lab

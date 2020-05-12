@@ -1,30 +1,22 @@
 import { createGlobalStyle } from 'styled-components'
 import {
-  headerFontFamilyString,
+  headerFontFamily,
   headerWeight,
-  scaleInRem,
   lineHeightForFontRem,
   bodyWeight,
   baseLineHeight,
-  bodyFontFamilyString,
+  bodyFontFamily,
   linesRem,
   bodyColor,
   boldWeight,
-  // linkColor,
-  // visitedColor,
-  // activeColor,
-  // hoverColor,
-  lineHeightForFontPix,
-  appBarHeight,
-  primaryColor
+  linkColor,
+  h1Size,
+  h2Size,
+  h3Size,
+  h4Size,
+  h5Size,
+  h6Size,
 } from '~/utils/styling'
-
-const h1Size = scaleInRem(5 / 5)
-const h2Size = scaleInRem(3 / 5)
-const h3Size = scaleInRem(2 / 5)
-const h4Size = scaleInRem(0 / 5)
-const h5Size = scaleInRem(-1 / 5)
-const h6Size = scaleInRem(-1.5 / 5)
 
 export default createGlobalStyle`
   h1,
@@ -35,7 +27,7 @@ export default createGlobalStyle`
   h6 {
     margin: 0 0 ${linesRem(1)};
     color: inherit;
-    font-family: ${headerFontFamilyString};
+    font-family: ${headerFontFamily};
     font-weight: ${headerWeight};
     text-rendering: optimizeLegibility;
   }
@@ -75,7 +67,7 @@ export default createGlobalStyle`
   }
 
   h6 {
-    font-family: ${bodyFontFamilyString};
+    font-family: ${bodyFontFamily};
     font-size: ${h6Size}rem;
     line-height: ${lineHeightForFontRem(h6Size)}rem;
     margin-bottom: ${linesRem(0.5)};
@@ -95,7 +87,7 @@ export default createGlobalStyle`
 
   pre, .stih {
     line-height: ${baseLineHeight};
-    font-family: ${bodyFontFamilyString};
+    font-family: ${bodyFontFamily};
     font-style: italic;
     text-align: center;
     @media (max-width: 460px) {
@@ -144,31 +136,23 @@ export default createGlobalStyle`
     margin-bottom: 30px;
     font-style: italic;
   }
-`
 
-/**
   a {
-    color: ${linkColor};
+    color: ${linkColor.link};
     text-decoration: none;
+
+    &:visited {
+      color: ${linkColor.visited};
+    }
+
+    &:active {
+      color: ${linkColor.active};
+    }
+
+    &:hover {
+      color: ${linkColor.hover};
+    } 
   }
 
-  a:link {
-    color: hsl(270, 88%, 64%);
-    text-shadow: none;
-  }
-
-  a:visited {
-    color: ${visitedColor};
-    text-shadow: none;
-  }
-
-  a:active {
-    color: ${activeColor};
-    text-shadow: none;
-  }
-
-  a:hover {
-    color: ${hoverColor};
-    text-shadow: none;
-  } 
- */
+  
+`

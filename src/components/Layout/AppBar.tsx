@@ -21,15 +21,13 @@ const Nav = styled.nav<{ fixed: boolean; drawer: boolean }>`
   flex-wrap: nowrap;
   align-items: baseline;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255,255,255,.05);
-  /* box-shadow: 0 1px 5px rgba(34,0,68,.3); */
   transform: ${({ drawer }) => (drawer ? 'translateX(-250px)' : 'none')};
   opacity: ${({ fixed }) => (fixed ? 0.95 : 1)};
-  /* @media (min-width: 560px) {
-    transform: ${({ drawer }) => (drawer ? 'translateX(-50vw)' : 'none')};
-  } */
   top: 0;
   transition: transform .3s cubic-bezier(1,.3,.5,.94);
+  @media (max-width: 639px) {
+    display: none;
+  }
 `
 
 const AppBar: React.FC = ({ children }) => {

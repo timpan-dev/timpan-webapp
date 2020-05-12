@@ -9,13 +9,8 @@ import {
 
 export default createGlobalStyle`
 
-  .fixed-width-page {
+  .fixed-width {
     max-width: ${pageWidth}px;
-    margin: auto;
-  }
-
-  .fixed-width-main {
-    max-width: ${contentWidth}px;
     margin: auto;
   }
 

@@ -1,0 +1,2 @@
+gatsby build
+firebase deploy

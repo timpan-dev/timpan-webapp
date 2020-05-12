@@ -3,13 +3,13 @@ import {
   baseFontSize,
   baseLineHeight,
   bodyColor,
-  bodyFontFamilyString,
-  bodyWeight
+  bodyFontFamily,
+  bodyWeight,
 } from '~/utils/styling'
 
 export default createGlobalStyle`
   html {
-    font: ${(baseFontSize / 16) * 100}% / ${baseLineHeight} ${bodyFontFamilyString};
+    font: ${(baseFontSize / 16) * 100}% / ${baseLineHeight} ${bodyFontFamily};
     box-sizing: border-box;
     overflow-y: "scroll";
     padding: 0;
@@ -22,7 +22,7 @@ export default createGlobalStyle`
     position: relative;
     z-index: -99;
     color: ${bodyColor};
-    font-family: ${bodyFontFamilyString};
+    font-family: ${bodyFontFamily};
     font-weight: ${bodyWeight};
     word-wrap: break-word;
     font-kerning: normal;
@@ -31,6 +31,7 @@ export default createGlobalStyle`
     margin: 0;
     min-height: 100%;
     min-width: 320px;
+    background: #852020;
   }
 
   * {
