@@ -1,14 +1,14 @@
+
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { graphql, Link } from 'gatsby'
+import { graphql, Link, navigate } from 'gatsby'
+import Img from 'gatsby-image'
 import Layout from '~/components/Layout'
-import { PostsForPageQuery, IPost } from '~/types'
-import { formatPostFromData } from '~/utils/post'
-import SmallPostView from "~/components/views/SmallPostView"
-import Head from '~/components/Head'
-import { pageWidth, primaryColor, secondaryColor, brighten, darken, gapWidth } from '~/utils/styling'
-import Sidebar from '~/components/Sidebar'
+import { AlbumsForPageQuery, IAlbum } from '~/types'
+import SmallAlbumView from '~/components/views/SmallAlbumView'
+import { formatAlbumFromData } from '~/utils/album'
 import SEO from '~/components/SEO'
+import { pageWidth, primaryColor, secondaryColor, brighten, darken, gapWidth } from '~/utils/styling'
 
 const Container = styled.div`
   display: flex;
@@ -22,28 +22,11 @@ const Container = styled.div`
 `
 
 const Main = styled.div`
-  width: 67%;
-  flex: 2;
-  @media (max-width: 700px) {
-    width: 100%;
-    margin: 0 10px;
-    display: none;
-    &.active {
-      display: block;
-    }
-  }
-`
-
-const SidebarDiv = styled.div`
-  width: 33%;
-  flex: 1;
-  margin-left: ${gapWidth}px;
-  @media (max-width: 700px) {
-    display: none;
-    margin: 0 20px;
-    &.active {
-      display: block;
-    }
+  width: 100%;
+  margin: 0 10px;
+  display: none;
+  &.active {
+    display: flex;
   }
 `
 
@@ -51,9 +34,6 @@ const TabBar = styled.div`
   display: flex;
   flex-direction: row;
   margin: 50px 0;
-  @media (min-width: 700px) {
-    display: none;
-  }
 `
 
 const Space = styled.div`
@@ -83,70 +63,68 @@ const Tab = styled.div`
     &:hover { color: ${ brighten(primaryColor)} !important; }
     &:active { color: ${ darken(primaryColor) } !important; }
   }
-  @media (min-width: 700px) {
-    display: none;
-  }
 `
 
-interface IPostListTemplateProps {
-  data: PostsForPageQuery
+interface IAlbumListTemplateProps {
+  data: AlbumsForPageQuery
 }
 
-const PostListTemplate: React.FC<IPostListTemplateProps> = ({ data }) => {
+const AlbumListTemplate: React.FC<IAlbumListTemplateProps> = ({ data }) => {
+  const albums = data.allMarkdownRemark.edges.map(({node}, index) => formatAlbumFromData(node, index))
   const [activeTab, setActiveTab] = useState(0)
-  const posts = data.allMarkdownRemark.edges.map(({ node }, index) => formatPostFromData(node, index))
 
   return (
     <Layout>
-      <Head />
       <TabBar>
         <Space></Space>
         <Tab
           className={activeTab === 0 ? "active" : null}
           onClick={() => activeTab !== 0 && setActiveTab(0)}
         >
-          Новости
+          Альбомы
         </Tab>
         <Tab
           className={activeTab === 1 ? "active" : null}
           onClick={() => activeTab !== 1 && setActiveTab(1)}
         >
-          Медиа
+          Музыка
         </Tab>
         <Space></Space>
       </TabBar>
       <Container>
-        <Main className={activeTab === 0 ? "active" : null}>
-          {posts.map((post: IPost, index) => {
-            return <SmallPostView key={index} post={post} />
+        <Main
+          className={activeTab === 0 ? "active" : null}
+          style={{
+            flexDirection: `row`,
+            flexWrap: `wrap`
+          }}
+        >
+          {albums.map((album, index) => {
+            return <SmallAlbumView album={album} key={index} />
           })}
         </Main>
-        <SidebarDiv className={activeTab === 1 ? "active" : null}>
-          <Sidebar />
-        </SidebarDiv>
+        <Main className={activeTab === 1 ? "active" : null}>ToDO</Main>
       </Container>
       <SEO></SEO>
     </Layout>
   )
 }
 
-export default PostListTemplate
+export default AlbumListTemplate
 
 export const query = graphql`
-  query postsForPage($skip: Int!, $limit: Int!) {
-    allMarkdownRemark(
+query albumsForPage {
+  allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
-      limit: $limit
-      skip: $skip
-      filter: {
-        fields: { urlPath: { ne: null }, source: { eq: "posts" } }
-      }
+      filter: {fields: {source: {eq: "albums"}}}
     ) {
-      edges {
-        node {
-          ...PostDataFragment
-        }
+    edges {
+      node {
+        ...AlbumDataFragment
       }
     }
   }
+}
 `
+
+

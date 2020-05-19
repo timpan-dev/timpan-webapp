@@ -1,10 +1,43 @@
 import React from 'react'
+import styled from 'styled-components'
 import { graphql } from 'gatsby'
-import { format } from 'date-fns'
-import { ru } from 'date-fns/locale'
 import Layout from '~/components/Layout'
 import { PostByUrlPathQuery, IPost } from '~/types'
-import { formatPostFromData } from "~/utils/post"
+import { formatPostFromData } from '~/utils/post'
+import { pageWidth, gapWidth } from '~/utils/styling'
+import PostView from '~/components/views/PostView'
+import Sidebar from '~/components/Sidebar'
+import SEO from '~/components/SEO'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+  max-width: ${ pageWidth }px;
+  margin: 10px auto;
+  justify-content: stretch;
+`
+
+const Main = styled.div`
+  width: 67%;
+  flex: 2;
+  @media (max-width: 700px) {
+    width: 100%;
+    margin: 0 5px;
+  }
+`
+
+const SidebarDiv = styled.div`
+  width: 33%;
+  flex: 1;
+  margin-left: ${gapWidth}px;
+  @media (max-width: 700px) {
+    display: none;
+    margin-left: 0;
+  }
+`
 
 interface IPostViewTemplateProps {
   data: PostByUrlPathQuery
@@ -15,15 +48,15 @@ const PostViewTemplate: React.FC<IPostViewTemplateProps> = ({ data }) => {
 
   return (
     <Layout>
-      <article>
-        <header>
-          <h2>{post.title}</h2>
-          <h3>{format(new Date(post.date), "d MMMM, yyyy", { locale: ru })}</h3>
-        </header>
-        <main>
-          <div dangerouslySetInnerHTML={{ __html: post.body }} />
-        </main>
-      </article>
+      <Container>
+        <Main>
+          <PostView post={post} />
+        </Main>
+        <SidebarDiv>
+          <Sidebar />
+        </SidebarDiv>
+      </Container>
+      <SEO></SEO>
     </Layout>
   )
 }

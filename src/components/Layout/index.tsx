@@ -13,6 +13,7 @@ import NavBar from './NavBar'
 import MenuSvg from '~/assets/menu.inline.svg'
 import CloseSvg from '~/assets/close.inline.svg'
 import { useAppContext } from '~/contexts/appContext'
+import MenuLink from './MenuLink'
 
 const Main = styled.div`
   flex: 1;
@@ -45,19 +46,19 @@ const MenuItem = styled.div`
   padding: 5px;
 `
 
-const MenuLink = styled(Link)`
-  text-transform: uppercase;
-  color: ${ primaryColor };
-  &:visited {
-    color: ${ primaryColor };
-  }
-  &:hover {
-    color: ${ brighten(primaryColor) };
-  }
-  &:active {
-    color: ${ darken(primaryColor) };
-  }
-`
+// const MenuLink = styled(Link)`
+//   text-transform: uppercase;
+//   color: ${ primaryColor };
+//   &:visited {
+//     color: ${ primaryColor };
+//   }
+//   &:hover {
+//     color: ${ brighten(primaryColor) };
+//   }
+//   &:active {
+//     color: ${ darken(primaryColor) };
+//   }
+// `
 
 const Separator = styled.div`
   display: flex;
@@ -124,7 +125,7 @@ const HMenuItem = styled.li`
 
 const HMenuSeporator = styled.div`
   height: 1px;
-  background: ${primaryColor};
+  background: #F8CB5B;
   width: 100%;
   margin: 5px 0;
   &.first {
@@ -140,9 +141,14 @@ const Layout: React.FC = ({ children }) => {
     e.preventDefault()
   }
 
+  function onLogoClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    dispatch({ type: `CLOSE_DRAWER` })
+    navigate("/")
+  }
+
   useEffect(() => {
-    if (state.pageWidth > 640 && state.drawer == true) {
-      dispatch({ type: `TOGGLE_DRAWER` })
+    if (state.pageWidth > 640) {
+      dispatch({ type: `CLOSE_DRAWER` })
     }
   }, [state.pageWidth])
 
@@ -151,19 +157,46 @@ const Layout: React.FC = ({ children }) => {
       <GlobalStyle></GlobalStyle>
       <NavBar>
         <HMenu>
-          <Logo onClick={() => navigate("/")}></Logo>
+          <Logo
+            onClick={onLogoClick}
+            style={{ position: `relative`, left: `10px` }}
+          ></Logo>
           <HMenuSeporator className="first"></HMenuSeporator>
-          <HMenuItem><MenuLink to="/">Новости</MenuLink></HMenuItem>
+          <HMenuItem>
+            <MenuLink className="navbar" to="/">
+              Главная
+            </MenuLink>
+          </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
-          <HMenuItem><MenuLink to="/test">О нас</MenuLink></HMenuItem>
+          <HMenuItem>
+            <MenuLink className="navbar" to="/test">
+              О нас
+            </MenuLink>
+          </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
-          <HMenuItem><MenuLink to="/test">Аудио</MenuLink></HMenuItem>
+          <HMenuItem>
+            <MenuLink className="navbar" to="/albums">
+              Аудио
+            </MenuLink>
+          </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
-          <HMenuItem><MenuLink to="/test">Видео</MenuLink></HMenuItem>
+          <HMenuItem>
+            <MenuLink className="navbar" to="/test">
+              Видео
+            </MenuLink>
+          </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
-          <HMenuItem><MenuLink to="/test">Фото</MenuLink></HMenuItem>
+          <HMenuItem>
+            <MenuLink className="navbar" to="/test">
+              Фото
+            </MenuLink>
+          </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
-          <HMenuItem><MenuLink to="/test">Ноты</MenuLink></HMenuItem>
+          <HMenuItem>
+            <MenuLink className="navbar" to="/music">
+              Ноты
+            </MenuLink>
+          </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
         </HMenu>
       </NavBar>
@@ -171,24 +204,46 @@ const Layout: React.FC = ({ children }) => {
         <AppBar>
           <AppBarWrapper>
             <Menu>
-              <MenuItem><MenuLink to="/">Новости</MenuLink></MenuItem>
-              <Separator><Ball></Ball></Separator>
-              <MenuItem><MenuLink to="/test">О нас</MenuLink></MenuItem>
-              <Separator><Ball></Ball></Separator>
-              <MenuItem><MenuLink to="/test">Аудио</MenuLink></MenuItem>
+              <MenuItem>
+                <MenuLink to="/">Главная</MenuLink>
+              </MenuItem>
+              <Separator>
+                <Ball></Ball>
+              </Separator>
+              <MenuItem>
+                <MenuLink to="/test">О нас</MenuLink>
+              </MenuItem>
+              <Separator>
+                <Ball></Ball>
+              </Separator>
+              <MenuItem>
+                <MenuLink to="/albums">Аудио</MenuLink>
+              </MenuItem>
             </Menu>
             <Logo onClick={() => navigate("/")}></Logo>
             <Menu>
-              <MenuItem><MenuLink to="/test">Видео</MenuLink></MenuItem>
-              <Separator><Ball></Ball></Separator>
-              <MenuItem><MenuLink to="/test">Фото</MenuLink></MenuItem>
-              <Separator><Ball></Ball></Separator>
-              <MenuItem><MenuLink to="/test">Ноты</MenuLink></MenuItem>
+              <MenuItem>
+                <MenuLink to="/test">Видео</MenuLink>
+              </MenuItem>
+              <Separator>
+                <Ball></Ball>
+              </Separator>
+              <MenuItem>
+                <MenuLink to="/test">Фото</MenuLink>
+              </MenuItem>
+              <Separator>
+                <Ball></Ball>
+              </Separator>
+              <MenuItem>
+                <MenuLink to="/music">Ноты</MenuLink>
+              </MenuItem>
             </Menu>
           </AppBarWrapper>
         </AppBar>
         <ContentView>
-          <MenuButton onClick={onMenuClick}>{state.drawer ? <CloseSvg /> : <MenuSvg />}</MenuButton>
+          <MenuButton onClick={onMenuClick}>
+            {state.drawer ? <CloseSvg /> : <MenuSvg />}
+          </MenuButton>
           <Main>{children}</Main>
           <Footer />
         </ContentView>

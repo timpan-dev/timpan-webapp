@@ -1,3 +1,5 @@
+import { GatsbyImageSharpFixed_WithWebp_TracedSvgFragment } from './graphqlTypes'
+
 export type PlayerDesc = {
   playerId: string
   stop: () => void
@@ -46,6 +48,39 @@ export interface IPost {
   date: Date
   desc?: string
   type?: string
+  urlPath: string
+  source: string
+  renderer: string
+  index?: number
+  body: string
+}
+
+export interface ITrack {
+  index?: number
+  title: string
+  src: string
+  filesize: number
+}
+
+export interface IAlbum {
+  id: string
+  title: string
+  date: Date
+  desc?: string
+  tags?: string[]
+  cover: {
+    width: number
+    height: number
+    src: string
+    srcSet: string 
+    sizes?: string
+    base64?: string
+    srcWebp?: string
+    srcSetWebp?: string
+    aspectRatio?: number
+    tracedSVG?: string
+  }
+  files: ITrack[]
   urlPath: string
   source: string
   renderer: string
@@ -130,3 +165,16 @@ export interface IPost {
 //   contextType: 'book'
 //   context: IBookContext
 // }
+
+export interface IPlaylistState {
+  playlist: ITrack[]
+  currentTrack: ITrack
+  currentTrackIndex: number
+}
+
+export interface IPlaylistActions {
+  setPlaylist: (playlist: ITrack[]) => void
+  setCurrentTrack: (index: number) => void
+  setNextTrack: () => void
+  setPrevTrack: () => void
+}

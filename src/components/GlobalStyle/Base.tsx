@@ -31,7 +31,7 @@ export default createGlobalStyle`
     margin: 0;
     min-height: 100%;
     min-width: 320px;
-    background: #852020;
+    background: #994342;
   }
 
   * {

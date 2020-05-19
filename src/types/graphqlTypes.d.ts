@@ -26,12 +26,12 @@ export type Scalars = {
 
 
 export type AudioContext = {
-  youtube?: Maybe<Scalars['String']>;
+  cover?: Maybe<File>;
   files?: Maybe<Array<Maybe<AudioDesc>>>;
 };
 
 export type AudioContextFilterInput = {
-  youtube?: Maybe<StringQueryOperatorInput>;
+  cover?: Maybe<FileFilterInput>;
   files?: Maybe<AudioDescFilterListInput>;
 };
 
@@ -746,7 +746,7 @@ export type FileFieldsEnum =
   'childMarkdownRemark___frontmatter___date' |
   'childMarkdownRemark___frontmatter___desc' |
   'childMarkdownRemark___frontmatter___type' |
-  'childMarkdownRemark___frontmatter___audio___youtube' |
+  'childMarkdownRemark___frontmatter___tags' |
   'childMarkdownRemark___frontmatter___audio___files' |
   'childMarkdownRemark___frontmatter___video___id' |
   'childMarkdownRemark___frontmatter___image___files' |
@@ -954,6 +954,7 @@ export type FrontmatterRemark = {
   date?: Maybe<Scalars['Date']>;
   desc?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   audio?: Maybe<AudioContext>;
   video?: Maybe<VideoContext>;
   image?: Maybe<ImageContext>;
@@ -965,6 +966,7 @@ export type FrontmatterRemarkFilterInput = {
   date?: Maybe<DateQueryOperatorInput>;
   desc?: Maybe<StringQueryOperatorInput>;
   type?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
   audio?: Maybe<AudioContextFilterInput>;
   video?: Maybe<VideoContextFilterInput>;
   image?: Maybe<ImageContextFilterInput>;
@@ -1644,7 +1646,43 @@ export type MarkdownRemarkFieldsEnum =
   'frontmatter___date' |
   'frontmatter___desc' |
   'frontmatter___type' |
-  'frontmatter___audio___youtube' |
+  'frontmatter___tags' |
+  'frontmatter___audio___cover___sourceInstanceName' |
+  'frontmatter___audio___cover___absolutePath' |
+  'frontmatter___audio___cover___relativePath' |
+  'frontmatter___audio___cover___extension' |
+  'frontmatter___audio___cover___size' |
+  'frontmatter___audio___cover___prettySize' |
+  'frontmatter___audio___cover___modifiedTime' |
+  'frontmatter___audio___cover___accessTime' |
+  'frontmatter___audio___cover___changeTime' |
+  'frontmatter___audio___cover___birthTime' |
+  'frontmatter___audio___cover___root' |
+  'frontmatter___audio___cover___dir' |
+  'frontmatter___audio___cover___base' |
+  'frontmatter___audio___cover___ext' |
+  'frontmatter___audio___cover___name' |
+  'frontmatter___audio___cover___relativeDirectory' |
+  'frontmatter___audio___cover___dev' |
+  'frontmatter___audio___cover___mode' |
+  'frontmatter___audio___cover___nlink' |
+  'frontmatter___audio___cover___uid' |
+  'frontmatter___audio___cover___gid' |
+  'frontmatter___audio___cover___rdev' |
+  'frontmatter___audio___cover___ino' |
+  'frontmatter___audio___cover___atimeMs' |
+  'frontmatter___audio___cover___mtimeMs' |
+  'frontmatter___audio___cover___ctimeMs' |
+  'frontmatter___audio___cover___atime' |
+  'frontmatter___audio___cover___mtime' |
+  'frontmatter___audio___cover___ctime' |
+  'frontmatter___audio___cover___birthtime' |
+  'frontmatter___audio___cover___birthtimeMs' |
+  'frontmatter___audio___cover___blksize' |
+  'frontmatter___audio___cover___blocks' |
+  'frontmatter___audio___cover___publicURL' |
+  'frontmatter___audio___cover___id' |
+  'frontmatter___audio___cover___children' |
   'frontmatter___audio___files' |
   'frontmatter___audio___files___title' |
   'frontmatter___video___id' |
@@ -2613,6 +2651,9 @@ export type SiteFieldsEnum =
   'siteMetadata___lang' |
   'siteMetadata___postsPerPage' |
   'siteMetadata___siteUrl' |
+  'siteMetadata___youtubeUrl' |
+  'siteMetadata___instagramUrl' |
+  'siteMetadata___vkUrl' |
   'port' |
   'host' |
   'polyfill' |
@@ -2953,6 +2994,17 @@ export type SitePageFieldsEnum =
   'pluginCreator___pluginOptions___footnotes' |
   'pluginCreator___pluginOptions___maxWidth' |
   'pluginCreator___pluginOptions___sizeByPixelDensity' |
+  'pluginCreator___pluginOptions___pathPrefix' |
+  'pluginCreator___pluginOptions___wrapperStyle' |
+  'pluginCreator___pluginOptions___backgroundColor' |
+  'pluginCreator___pluginOptions___linkImagesToOriginal' |
+  'pluginCreator___pluginOptions___showCaptions' |
+  'pluginCreator___pluginOptions___markdownCaptions' |
+  'pluginCreator___pluginOptions___withWebp' |
+  'pluginCreator___pluginOptions___tracedSVG' |
+  'pluginCreator___pluginOptions___loading' |
+  'pluginCreator___pluginOptions___disableBgImageOnAlpha' |
+  'pluginCreator___pluginOptions___disableBgImage' |
   'pluginCreator___pluginOptions___ignoreFileExtensions' |
   'pluginCreator___pluginOptions___extensions' |
   'pluginCreator___pluginOptions___gatsbyRemarkPlugins' |
@@ -3155,6 +3207,17 @@ export type SitePluginFieldsEnum =
   'pluginOptions___plugins___version' |
   'pluginOptions___plugins___pluginOptions___maxWidth' |
   'pluginOptions___plugins___pluginOptions___sizeByPixelDensity' |
+  'pluginOptions___plugins___pluginOptions___pathPrefix' |
+  'pluginOptions___plugins___pluginOptions___wrapperStyle' |
+  'pluginOptions___plugins___pluginOptions___backgroundColor' |
+  'pluginOptions___plugins___pluginOptions___linkImagesToOriginal' |
+  'pluginOptions___plugins___pluginOptions___showCaptions' |
+  'pluginOptions___plugins___pluginOptions___markdownCaptions' |
+  'pluginOptions___plugins___pluginOptions___withWebp' |
+  'pluginOptions___plugins___pluginOptions___tracedSVG' |
+  'pluginOptions___plugins___pluginOptions___loading' |
+  'pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha' |
+  'pluginOptions___plugins___pluginOptions___disableBgImage' |
   'pluginOptions___plugins___pluginOptions___ignoreFileExtensions' |
   'pluginOptions___plugins___browserAPIs' |
   'pluginOptions___plugins___pluginFilepath' |
@@ -3173,6 +3236,17 @@ export type SitePluginFieldsEnum =
   'pluginOptions___footnotes' |
   'pluginOptions___maxWidth' |
   'pluginOptions___sizeByPixelDensity' |
+  'pluginOptions___pathPrefix' |
+  'pluginOptions___wrapperStyle' |
+  'pluginOptions___backgroundColor' |
+  'pluginOptions___linkImagesToOriginal' |
+  'pluginOptions___showCaptions' |
+  'pluginOptions___markdownCaptions' |
+  'pluginOptions___withWebp' |
+  'pluginOptions___tracedSVG' |
+  'pluginOptions___loading' |
+  'pluginOptions___disableBgImageOnAlpha' |
+  'pluginOptions___disableBgImage' |
   'pluginOptions___ignoreFileExtensions' |
   'pluginOptions___extensions' |
   'pluginOptions___gatsbyRemarkPlugins' |
@@ -3327,6 +3401,17 @@ export type SitePluginPluginOptions = {
   footnotes?: Maybe<Scalars['Boolean']>;
   maxWidth?: Maybe<Scalars['Int']>;
   sizeByPixelDensity?: Maybe<Scalars['Boolean']>;
+  pathPrefix?: Maybe<Scalars['String']>;
+  wrapperStyle?: Maybe<Scalars['String']>;
+  backgroundColor?: Maybe<Scalars['String']>;
+  linkImagesToOriginal?: Maybe<Scalars['Boolean']>;
+  showCaptions?: Maybe<Scalars['Boolean']>;
+  markdownCaptions?: Maybe<Scalars['Boolean']>;
+  withWebp?: Maybe<Scalars['Boolean']>;
+  tracedSVG?: Maybe<Scalars['Boolean']>;
+  loading?: Maybe<Scalars['String']>;
+  disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>;
+  disableBgImage?: Maybe<Scalars['Boolean']>;
   ignoreFileExtensions?: Maybe<Array<Maybe<Scalars['String']>>>;
   extensions?: Maybe<Array<Maybe<Scalars['String']>>>;
   gatsbyRemarkPlugins?: Maybe<Array<Maybe<SitePluginPluginOptionsGatsbyRemarkPlugins>>>;
@@ -3353,6 +3438,17 @@ export type SitePluginPluginOptionsFilterInput = {
   footnotes?: Maybe<BooleanQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
   sizeByPixelDensity?: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix?: Maybe<StringQueryOperatorInput>;
+  wrapperStyle?: Maybe<StringQueryOperatorInput>;
+  backgroundColor?: Maybe<StringQueryOperatorInput>;
+  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>;
+  showCaptions?: Maybe<BooleanQueryOperatorInput>;
+  markdownCaptions?: Maybe<BooleanQueryOperatorInput>;
+  withWebp?: Maybe<BooleanQueryOperatorInput>;
+  tracedSVG?: Maybe<BooleanQueryOperatorInput>;
+  loading?: Maybe<StringQueryOperatorInput>;
+  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>;
+  disableBgImage?: Maybe<BooleanQueryOperatorInput>;
   ignoreFileExtensions?: Maybe<StringQueryOperatorInput>;
   extensions?: Maybe<StringQueryOperatorInput>;
   gatsbyRemarkPlugins?: Maybe<SitePluginPluginOptionsGatsbyRemarkPluginsFilterListInput>;
@@ -3439,12 +3535,34 @@ export type SitePluginPluginOptionsPluginsFilterListInput = {
 export type SitePluginPluginOptionsPluginsPluginOptions = {
   maxWidth?: Maybe<Scalars['Int']>;
   sizeByPixelDensity?: Maybe<Scalars['Boolean']>;
+  pathPrefix?: Maybe<Scalars['String']>;
+  wrapperStyle?: Maybe<Scalars['String']>;
+  backgroundColor?: Maybe<Scalars['String']>;
+  linkImagesToOriginal?: Maybe<Scalars['Boolean']>;
+  showCaptions?: Maybe<Scalars['Boolean']>;
+  markdownCaptions?: Maybe<Scalars['Boolean']>;
+  withWebp?: Maybe<Scalars['Boolean']>;
+  tracedSVG?: Maybe<Scalars['Boolean']>;
+  loading?: Maybe<Scalars['String']>;
+  disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>;
+  disableBgImage?: Maybe<Scalars['Boolean']>;
   ignoreFileExtensions?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   maxWidth?: Maybe<IntQueryOperatorInput>;
   sizeByPixelDensity?: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix?: Maybe<StringQueryOperatorInput>;
+  wrapperStyle?: Maybe<StringQueryOperatorInput>;
+  backgroundColor?: Maybe<StringQueryOperatorInput>;
+  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>;
+  showCaptions?: Maybe<BooleanQueryOperatorInput>;
+  markdownCaptions?: Maybe<BooleanQueryOperatorInput>;
+  withWebp?: Maybe<BooleanQueryOperatorInput>;
+  tracedSVG?: Maybe<BooleanQueryOperatorInput>;
+  loading?: Maybe<StringQueryOperatorInput>;
+  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>;
+  disableBgImage?: Maybe<BooleanQueryOperatorInput>;
   ignoreFileExtensions?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -3461,6 +3579,9 @@ export type SiteSiteMetadata = {
   lang?: Maybe<Scalars['String']>;
   postsPerPage?: Maybe<Scalars['Int']>;
   siteUrl?: Maybe<Scalars['String']>;
+  youtubeUrl?: Maybe<Scalars['String']>;
+  instagramUrl?: Maybe<Scalars['String']>;
+  vkUrl?: Maybe<Scalars['String']>;
 };
 
 export type SiteSiteMetadataFilterInput = {
@@ -3471,6 +3592,9 @@ export type SiteSiteMetadataFilterInput = {
   lang?: Maybe<StringQueryOperatorInput>;
   postsPerPage?: Maybe<IntQueryOperatorInput>;
   siteUrl?: Maybe<StringQueryOperatorInput>;
+  youtubeUrl?: Maybe<StringQueryOperatorInput>;
+  instagramUrl?: Maybe<StringQueryOperatorInput>;
+  vkUrl?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SiteSortInput = {
@@ -3504,7 +3628,24 @@ export type VideoContextFilterInput = {
 export type GetHeadBackgroundQueryVariables = {};
 
 
-export type GetHeadBackgroundQuery = { file?: Maybe<{ childImageSharp?: Maybe<{ fixed?: Maybe<GatsbyImageSharpFixedFragment> }> }> };
+export type GetHeadBackgroundQuery = { file?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_TracedSvgFragment> }> }> };
+
+export type SideabrAudioListQueryVariables = {};
+
+
+export type SideabrAudioListQuery = { allFile: { edges: Array<{ node: Pick<File, 'sourceInstanceName' | 'publicURL' | 'size' | 'name'> }> } };
+
+export type AlbumByUrlPathQueryVariables = {
+  urlPath: Scalars['String'];
+};
+
+
+export type AlbumByUrlPathQuery = { markdownRemark?: Maybe<AlbumDataFragmentFragment> };
+
+export type AlbumsForPageQueryVariables = {};
+
+
+export type AlbumsForPageQuery = { allMarkdownRemark: { edges: Array<{ node: AlbumDataFragmentFragment }> } };
 
 export type PageByUrlPathQueryVariables = {
   urlPath: Scalars['String'];
@@ -3531,10 +3672,21 @@ export type PostsForPageQueryVariables = {
 
 export type PostsForPageQuery = { allMarkdownRemark: { edges: Array<{ node: PostDataFragmentFragment }> } };
 
+export type AlbumDataFragmentFragment = (
+  Pick<MarkdownRemark, 'html'>
+  & { frontmatter?: Maybe<(
+    Pick<FrontmatterRemark, 'id' | 'title' | 'date' | 'tags'>
+    & { audio?: Maybe<{ cover?: Maybe<{ childImageSharp?: Maybe<{ fixed?: Maybe<GatsbyImageSharpFixed_TracedSvgFragment> }> }>, files?: Maybe<Array<Maybe<(
+        Pick<AudioDesc, 'title'>
+        & { source?: Maybe<Pick<File, 'publicURL' | 'base' | 'size'>> }
+      )>>> }> }
+  )>, fields?: Maybe<Pick<FieldsRemark, 'urlPath' | 'source' | 'renderer'>> }
+);
+
 export type PostDataFragmentFragment = (
   Pick<MarkdownRemark, 'id' | 'html'>
   & { frontmatter?: Maybe<(
-    Pick<FrontmatterRemark, 'title' | 'date' | 'desc' | 'type'>
+    Pick<FrontmatterRemark, 'id' | 'title' | 'date' | 'desc' | 'type'>
     & { image?: Maybe<{ files?: Maybe<Array<Maybe<(
         Pick<ImageDesc, 'title'>
         & { source?: Maybe<Pick<File, 'publicURL'>> }

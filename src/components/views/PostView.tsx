@@ -10,14 +10,12 @@ interface IPostViewProps {
 
 const PostView: React.FC<IPostViewProps> = ({ post }) => {
   return (
-    <article className="fixed-width">
+    <article>
       <header>
-        <Link to={post.urlPath}>
-          <h2>{post.title}</h2>
-        </Link>
-        {/* <h3>
+        <h2>{post.title}</h2>
+        <h3>
           {format(new Date(post.date), "d MMMM, yyyy", { locale: ru })}
-        </h3> */}
+        </h3>
       </header>
       <main>
         <div dangerouslySetInnerHTML={{ __html: post.body }} />

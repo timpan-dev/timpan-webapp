@@ -6,7 +6,7 @@ import {
   IPlayerRegAction,
   IPlayerStartAction,
   PlayerDesc,
-  IResizeAction
+  IResizeAction,
 } from "~/types"
 import AppContext from "~/contexts/appContext"
 import { contentWidth } from "~/utils/styling"
@@ -25,6 +25,11 @@ const appReducer = (state: IAppState, action: AllAppActions) => {
       return {
         ...state,
         drawer: !state.drawer
+      }
+    case "CLOSE_DRAWER":
+      return {
+        ...state,
+        drawer: false
       }
     case "RESIZE": {
       const { width } = action as IResizeAction

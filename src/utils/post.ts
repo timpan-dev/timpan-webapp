@@ -9,6 +9,7 @@ export const PostDataFragment = graphql`
     id
     html
     frontmatter {
+      id
       title
       date
       desc

@@ -22,7 +22,7 @@ const Nav = styled.nav<{ fixed: boolean; drawer: boolean }>`
   align-items: baseline;
   overflow: hidden;
   transform: ${({ drawer }) => (drawer ? 'translateX(-250px)' : 'none')};
-  opacity: ${({ fixed }) => (fixed ? 0.95 : 1)};
+  opacity: ${({ fixed }) => (fixed ? 1 : 1)};
   top: 0;
   transition: transform .3s cubic-bezier(1,.3,.5,.94);
   @media (max-width: 639px) {
