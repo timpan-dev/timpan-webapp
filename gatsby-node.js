@@ -1,8 +1,8 @@
 const { resolve } = require(`path`)
 const { format } = require('date-fns')
-const slugify = require('slugify')
+const _slugify = require('slugify')
 
-const contentWidth = 560
+const contentWidth = 600
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
@@ -30,7 +30,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type AudioContext {
-      youtube: String
+      cover: File @fileByRelativePath
       files: [AudioDesc]
     }
 
@@ -49,6 +49,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       date: Date
       desc: String
       type: String
+      tags: [String]
       audio: AudioContext
       video: VideoContext
       image: ImageContext
@@ -76,8 +77,21 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs)
 }
 
+function slugify(title) {
+  return _slugify(title, {
+    replacement: '-',
+    remove: /[*+~.()'"!:@]/g,
+    lower: false,
+    strict: true,
+  })
+}
+
 function formatPostUrl (slug, date) {
   return `/blog/${format(date, 'yyyy/MM')}/${slug}`
+}
+
+function formatAlbumUrl(slug) {
+  return `/album/${slug}`
 }
 
 exports.onCreateNode = async ({ node, actions, getNode }) => {
@@ -92,18 +106,23 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
     let slug
 
     switch (source) {
-      case 'posts': {
+      case "posts": {
         slug = slugify(node.frontmatter.title)
         const date = new Date(node.frontmatter.date)
         urlPath = formatPostUrl(slug, date)
         break
       }
-      case 'pages': {
+      case "pages": {
         urlPath = node.frontmatter.url
         break
       }
+      case "albums": {
+        slug = slugify(node.frontmatter.title)
+        urlPath = formatAlbumUrl(slug)
+        break
+      }
       default:
-        throw new Error('invalid markdown source')
+        throw new Error("invalid markdown source")
     }
 
     createNodeField({
@@ -182,28 +201,42 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     ({ node }) => node.fields.source === 'posts'
   )
 
+  const albums = result.data.allMarkdownRemark.edges.filter(
+    ({ node }) => node.fields.source === 'albums'
+  )
+
   const pages = result.data.allMdx.edges.filter(
     ({ node }) => node.fields.source === 'pages'
   )
 
   posts.forEach(({ node }) => {
-    const { id, slug } = node.frontmatter
+    const { id } = node.frontmatter
     const { urlPath } = node.fields
 
     createPage({
       path: urlPath,
       component: resolve(`./src/templates/post.tsx`),
-      context: { id, slug, urlPath, contentWidth },
+      context: { id, urlPath, contentWidth },
     })
   })
 
   pages.forEach(({ node }) => {
-    const { id, slug } = node.frontmatter
+    const { id } = node.frontmatter
     const { urlPath } = node.fields
     createPage({
       path: urlPath,
       component: resolve(`./src/templates/page.tsx`),
-      context: { id, slug, urlPath, contentWidth },
+      context: { id, urlPath, contentWidth },
+    })
+  })
+
+  albums.forEach(({ node }) => {
+    const { id } = node.frontmatter
+    const { urlPath } = node.fields
+    createPage({
+      path: urlPath,
+      component: resolve(`./src/templates/album.tsx`),
+      context: { id, urlPath, contentWidth }
     })
   })
 
@@ -222,6 +255,22 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         currentPage: i + 1,
         contentWidth,
       },
+    })
+  }
+
+  numPages = Math.ceil(albums.length / postsPerPage)
+  for (let i = 0; i < numPages; i++) {
+    let path = i === 0 ? `/albums` : `/albums/${i + 1}`
+    createPage({
+      path,
+      component: resolve("./src/templates/albums.tsx"),
+      context: {
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        numPages,
+        currentPage: i + 1,
+        contentWidth
+      }
     })
   }
 }

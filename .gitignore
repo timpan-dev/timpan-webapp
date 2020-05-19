@@ -73,3 +73,5 @@ yarn-error.log
 ./graphqlTypes.d.ts
 
 __lab
+.firebase
+.firebase/**/*

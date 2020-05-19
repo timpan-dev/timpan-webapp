@@ -18,7 +18,10 @@ module.exports = {
     ].join(", "),
     lang: "ru",
     postsPerPage: 10,
-    siteUrl: `https://timpan-team.web.app`
+    siteUrl: `https://timpan-team.web.app`,
+    youtubeUrl: `https://www.youtube.com/channel/UCGLXZ38NNq36ecv4N7caU9Q`,
+    instagramUrl: `https://instagram.com/timpan.by`,
+    vkUrl: `https://vk.com/public_timpan`
   },
   plugins: [
     {
@@ -28,6 +31,7 @@ module.exports = {
       }
     },
     `gatsby-plugin-typescript`,
+    `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -42,6 +46,15 @@ module.exports = {
         display: `minimal-ui`,
         icon: `src/assets/fav.png`,
         include_favicon: true
+      }
+    },
+    `gatsby-transformer-yaml`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `${__dirname}/src/content/data`,
+        ignore: [`**/\.*`]
       }
     },
     {
@@ -65,6 +78,22 @@ module.exports = {
       options: {
         name: `pages`,
         path: `${__dirname}/src/content/pages`,
+        ignore: [`**/\.*`]
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `albums`,
+        path: `${__dirname}/src/content/albums`,
+        ignore: [`**/\.*`]
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `sidebar-audio`,
+        path: `${__dirname}/src/content/sidebar`,
         ignore: [`**/\.*`]
       }
     },
@@ -126,12 +155,12 @@ module.exports = {
     //   }
     // },
     {
-      resolve: 'gatsby-plugin-react-svg',
+      resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /\.inline\.svg$/, // See below to configure properly
-        },
-      },
-    },
+          include: /\.inline\.svg$/ // See below to configure properly
+        }
+      }
+    }
   ]
 }
