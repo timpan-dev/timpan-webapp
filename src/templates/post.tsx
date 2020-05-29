@@ -56,7 +56,10 @@ const PostViewTemplate: React.FC<IPostViewTemplateProps> = ({ data }) => {
           <Sidebar />
         </SidebarDiv>
       </Container>
-      <SEO></SEO>
+      <SEO
+        title={post.title}
+        description={post.desc}
+      />
     </Layout>
   )
 }
