@@ -100,7 +100,7 @@ const PostListTemplate: React.FC<IPostListTemplateProps> = ({ data, pageContext 
 
   const { currentPage, numPages } = pageContext
   return (
-    <Layout>
+    <Layout showSmallHead={false}>
       <Head />
       <TabBar>
         <Space></Space>

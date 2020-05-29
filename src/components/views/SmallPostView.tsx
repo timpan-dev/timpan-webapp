@@ -8,6 +8,7 @@ import { IPost } from '~/types'
 import { primaryColor } from '~/utils/styling'
 import Carousel from "react-images"
 import View from '~/components/ImageView'
+import YoutubeView from '~/components/YoutubeView'
 
 interface ISmallPostViewProps {
   post: IPost
@@ -31,6 +32,8 @@ const Article = styled.article`
 const SmallPostView: React.FC<ISmallPostViewProps> = ({ post }) => {
   let coverJsx = null
   let imagesJsx = null
+  let videoJsx = null
+
   if (post.type === 'cover' && post.cover) {
     coverJsx = <div onClick={() => navigate(post.urlPath)} style={{margin: '0 0 20px'}}>
       <Img fluid={post.cover}></Img>
@@ -49,10 +52,17 @@ const SmallPostView: React.FC<ISmallPostViewProps> = ({ post }) => {
     </div>
   }
 
+  if (post.type === 'video' && post.video) {
+    videoJsx = <div style={{ margin: '0 0 20px' }}>
+      <YoutubeView link={post.video} />
+    </div>
+  }
+
   return (
     <Article>
       {coverJsx}
       {imagesJsx}
+      {videoJsx}
       <header>
         <Link to={post.urlPath}>
           <h2>{post.title}</h2>

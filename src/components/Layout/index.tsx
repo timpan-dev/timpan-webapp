@@ -14,6 +14,7 @@ import MenuSvg from '~/assets/menu.inline.svg'
 import CloseSvg from '~/assets/close.inline.svg'
 import { useAppContext } from '~/contexts/appContext'
 import MenuLink from './MenuLink'
+import SmallHead from '~/components/Head/SmallHead'
 
 const Main = styled.div`
   flex: 1;
@@ -133,7 +134,11 @@ const HMenuSeporator = styled.div`
   }
 `
 
-const Layout: React.FC = ({ children }) => {
+interface ILayoutProps {
+  showSmallHead?: boolean
+}
+
+const Layout: React.FC<ILayoutProps> = ({ children, showSmallHead = true }) => {
   const { state, dispatch } = useAppContext()
 
   function onMenuClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -244,6 +249,7 @@ const Layout: React.FC = ({ children }) => {
           <MenuButton onClick={onMenuClick}>
             {state.drawer ? <CloseSvg /> : <MenuSvg />}
           </MenuButton>
+          {showSmallHead && <SmallHead/>}
           <Main>{children}</Main>
           <Footer />
         </ContentView>

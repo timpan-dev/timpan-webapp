@@ -7,6 +7,7 @@ import { ru } from 'date-fns/locale'
 import { IPost } from '~/types'
 import Carousel from "react-images"
 import View from '~/components/ImageView'
+import YoutubeView from '~/components/YoutubeView'
 
 const Article = styled.article`
   h5 {
@@ -26,6 +27,8 @@ interface IPostViewProps {
 const PostView: React.FC<IPostViewProps> = ({ post }) => {
   let coverJsx = null
   let imagesJsx = null
+  let videoJsx = null
+
   if (post.type === 'cover' && post.cover) {
     coverJsx = <div style={{ margin: '0 0 20px' }}>
       <Img fluid={post.cover}></Img>
@@ -43,10 +46,18 @@ const PostView: React.FC<IPostViewProps> = ({ post }) => {
       />
     </div>
   }
+
+  if (post.type === 'video' && post.video) {
+    videoJsx = <div style={{ margin: '0 0 20px' }}>
+      <YoutubeView link={post.video} />
+    </div>
+  }
+
   return (
     <Article>
       {coverJsx}
       {imagesJsx}
+      {videoJsx}
       <header>
         <h2>{post.title}</h2>
         <h5>
