@@ -32,7 +32,10 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.0.0",
+    "react-images": "^1.1.7",
+    "react-photo-gallery": "^8.0.0",
     "react-sizeme": "^2.6.12",
+    "react-transition-group": "^4.4.1",
     "slugify": "^1.4.0",
     "styled-components": "^5.1.0",
     "typescript": "^3.8.3"

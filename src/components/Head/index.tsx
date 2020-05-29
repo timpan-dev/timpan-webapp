@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, useStaticQuery, navigate } from 'gatsby'
 // import Img from 'gatsby-image'
 import { pageWidth } from '~/utils/styling'
 // import headImg from '~/assets/head.png'
@@ -85,8 +85,8 @@ const Head: React.FC = () => {
         className="head-img"
       >
         <HeadDiv>
-          <Logo></Logo>
-          <Label></Label>
+          <Logo onClick={() => navigate('/about')}></Logo>
+          <Label onClick={() => navigate('/about')}></Label>
         </HeadDiv>
       </BackgroundImage>
     </Wrapper>

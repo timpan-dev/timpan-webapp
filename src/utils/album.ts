@@ -33,7 +33,6 @@ export const AlbumDataFragment = graphql`
     fields {
       urlPath
       source
-      renderer
     }
   }
 `

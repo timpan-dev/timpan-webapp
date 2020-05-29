@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Link, navigate } from 'gatsby'
+import { navigate } from 'gatsby'
 import GlobalStyle from '~/components/GlobalStyle'
 import AppBar from './AppBar'
 import RootContainer from './RootContainer'
@@ -169,7 +169,7 @@ const Layout: React.FC = ({ children }) => {
           </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
           <HMenuItem>
-            <MenuLink className="navbar" to="/test">
+            <MenuLink className="navbar" to="/about">
               О нас
             </MenuLink>
           </HMenuItem>
@@ -181,13 +181,13 @@ const Layout: React.FC = ({ children }) => {
           </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
           <HMenuItem>
-            <MenuLink className="navbar" to="/test">
+            <MenuLink className="navbar" to="/videos">
               Видео
             </MenuLink>
           </HMenuItem>
           <HMenuSeporator></HMenuSeporator>
           <HMenuItem>
-            <MenuLink className="navbar" to="/test">
+            <MenuLink className="navbar" to="/photos">
               Фото
             </MenuLink>
           </HMenuItem>
@@ -211,7 +211,7 @@ const Layout: React.FC = ({ children }) => {
                 <Ball></Ball>
               </Separator>
               <MenuItem>
-                <MenuLink to="/test">О нас</MenuLink>
+                <MenuLink to="/about">О нас</MenuLink>
               </MenuItem>
               <Separator>
                 <Ball></Ball>
@@ -223,13 +223,13 @@ const Layout: React.FC = ({ children }) => {
             <Logo onClick={() => navigate("/")}></Logo>
             <Menu>
               <MenuItem>
-                <MenuLink to="/test">Видео</MenuLink>
+                <MenuLink to="/videos">Видео</MenuLink>
               </MenuItem>
               <Separator>
                 <Ball></Ball>
               </Separator>
               <MenuItem>
-                <MenuLink to="/test">Фото</MenuLink>
+                <MenuLink to="/photos">Фото</MenuLink>
               </MenuItem>
               <Separator>
                 <Ball></Ball>

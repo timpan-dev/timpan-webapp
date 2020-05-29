@@ -16,7 +16,7 @@ const Container = styled.div`
   align-items: stretch;
   width: 100%;
   max-width: ${ pageWidth }px;
-  margin: 10px auto;
+  margin: 50px auto;
   justify-content: stretch;
 `
 
@@ -32,7 +32,7 @@ const Main = styled.div`
 const SidebarDiv = styled.div`
   width: 33%;
   flex: 1;
-  margin-left: ${gapWidth}px;
+  margin-left: ${2*gapWidth}px;
   @media (max-width: 700px) {
     display: none;
     margin-left: 0;

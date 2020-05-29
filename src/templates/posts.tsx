@@ -9,6 +9,7 @@ import Head from '~/components/Head'
 import { pageWidth, primaryColor, secondaryColor, brighten, darken, gapWidth } from '~/utils/styling'
 import Sidebar from '~/components/Sidebar'
 import SEO from '~/components/SEO'
+import Pagination from '~/components/Pagination'
 
 const Container = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const Container = styled.div`
   align-items: stretch;
   width: 100%;
   max-width: ${ pageWidth }px;
-  margin: 10px auto;
+  margin: 80px auto 40px;
   justify-content: stretch;
 `
 
@@ -37,7 +38,7 @@ const Main = styled.div`
 const SidebarDiv = styled.div`
   width: 33%;
   flex: 1;
-  margin-left: ${gapWidth}px;
+  margin-left: ${2*gapWidth}px;
   @media (max-width: 700px) {
     display: none;
     margin: 0 20px;
@@ -90,12 +91,14 @@ const Tab = styled.div`
 
 interface IPostListTemplateProps {
   data: PostsForPageQuery
+  pageContext: any
 }
 
-const PostListTemplate: React.FC<IPostListTemplateProps> = ({ data }) => {
+const PostListTemplate: React.FC<IPostListTemplateProps> = ({ data, pageContext }) => {
   const [activeTab, setActiveTab] = useState(0)
   const posts = data.allMarkdownRemark.edges.map(({ node }, index) => formatPostFromData(node, index))
 
+  const { currentPage, numPages } = pageContext
   return (
     <Layout>
       <Head />
@@ -120,6 +123,12 @@ const PostListTemplate: React.FC<IPostListTemplateProps> = ({ data }) => {
           {posts.map((post: IPost, index) => {
             return <SmallPostView key={index} post={post} />
           })}
+          <Pagination
+            className="fixed-width mb-2"
+            currentPage={currentPage}
+            numberOfPages={numPages}
+            getPageUriByIndex={n => (n === 1 ? `/` : `/${n}`)}
+          />
         </Main>
         <SidebarDiv className={activeTab === 1 ? "active" : null}>
           <Sidebar />

@@ -1,4 +1,5 @@
-import { GatsbyImageSharpFixed_WithWebp_TracedSvgFragment } from './graphqlTypes'
+import { GatsbyImageSharpFixed_WithWebp_TracedSvgFragment
+  , GatsbyImageSharpFluid_WithWebp_TracedSvgFragment } from './graphqlTypes'
 
 export type PlayerDesc = {
   playerId: string
@@ -50,9 +51,14 @@ export interface IPost {
   type?: string
   urlPath: string
   source: string
-  renderer: string
   index?: number
   body: string
+  cover?: GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+  images?: {
+    image: GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+    title?: string
+  }[]
+  video?: string
 }
 
 export interface ITrack {

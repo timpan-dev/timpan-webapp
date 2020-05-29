@@ -16,15 +16,18 @@ exports.createSchemaCustomization = ({ actions }) => {
     type FieldsRemark {
       urlPath: String!
       source: String!
-      renderer: String!
     }
 
-    type AudioDesc {
+    type ImageDesc {
       source: File @fileByRelativePath
       title: String
     }
 
-    type ImageDesc {
+    type ImageContext {
+      files: [ImageDesc]
+    }
+
+    type AudioDesc {
       source: File @fileByRelativePath
       title: String
     }
@@ -34,44 +37,17 @@ exports.createSchemaCustomization = ({ actions }) => {
       files: [AudioDesc]
     }
 
-    type VideoContext {
-      id: String!
-      audio: File @fileByRelativePath
-    }
-
-    type ImageContext {
-      files: [ImageDesc]
-    }
-
     type FrontmatterRemark {
       id: String!
       title: String!
       date: Date
-      desc: String
-      type: String
+      desc: String!
       tags: [String]
-      audio: AudioContext
-      video: VideoContext
+      type: String!
+      cover: File @fileByRelativePath
       image: ImageContext
-    }
-
-    type Mdx implements Node @dontInfer {
-      frontmatter: FrontmatterMdx
-      fields: FieldsMdx
-    }
-
-    type FieldsMdx {
-      urlPath: String!
-      source: String!
-      renderer: String!
-    }
-
-    type FrontmatterMdx {
-      id: String!
-      title: String!
-      url: String
-      date: Date
-      desc: String
+      audio: AudioContext
+      video: String
     }
   `
   createTypes(typeDefs)
@@ -100,7 +76,7 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
   if (node.internal.type === `Mdx` || node.internal.type === `MarkdownRemark`) {
     
     const source = getNode(node.parent).sourceInstanceName
-    const renderer = node.internal.type === `Mdx` ? 'mdx' : 'remark'
+    // const renderer = node.internal.type === `Mdx` ? 'mdx' : 'remark'
 
     let urlPath
     let slug
@@ -110,10 +86,6 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
         slug = slugify(node.frontmatter.title)
         const date = new Date(node.frontmatter.date)
         urlPath = formatPostUrl(slug, date)
-        break
-      }
-      case "pages": {
-        urlPath = node.frontmatter.url
         break
       }
       case "albums": {
@@ -127,21 +99,9 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
 
     createNodeField({
       node,
-      name: `renderer`,
-      value: renderer,
-    })
-
-    createNodeField({
-      node,
       name: `urlPath`,
       value: urlPath,
     })
-
-    // createNodeField({
-    //   node,
-    //   name: `slug`,
-    //   value: slug ? slug : null
-    // })
 
     createNodeField({
       node,
@@ -170,21 +130,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             fields {
               urlPath
               source
-              renderer
-            }
-          }
-        }
-      }
-      allMdx(filter: { fields: { urlPath: { ne: null } } }) {
-        edges {
-          node {
-            frontmatter {
-              id
-            }
-            fields {
-              urlPath
-              source
-              renderer
             }
           }
         }
@@ -205,10 +150,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     ({ node }) => node.fields.source === 'albums'
   )
 
-  const pages = result.data.allMdx.edges.filter(
-    ({ node }) => node.fields.source === 'pages'
-  )
-
   posts.forEach(({ node }) => {
     const { id } = node.frontmatter
     const { urlPath } = node.fields
@@ -216,16 +157,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: urlPath,
       component: resolve(`./src/templates/post.tsx`),
-      context: { id, urlPath, contentWidth },
-    })
-  })
-
-  pages.forEach(({ node }) => {
-    const { id } = node.frontmatter
-    const { urlPath } = node.fields
-    createPage({
-      path: urlPath,
-      component: resolve(`./src/templates/page.tsx`),
       context: { id, urlPath, contentWidth },
     })
   })

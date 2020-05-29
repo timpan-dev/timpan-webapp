@@ -76,14 +76,6 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `pages`,
-        path: `${__dirname}/src/content/pages`,
-        ignore: [`**/\.*`]
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
         name: `albums`,
         path: `${__dirname}/src/content/albums`,
         ignore: [`**/\.*`]
@@ -107,29 +99,6 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 560,
-              sizeByPixelDensity: true
-            }
-          },
-          {
-            resolve: `gatsby-remark-copy-linked-files`,
-            options: {
-              destinationDir: f => `linked-files/${f.hash}/${f.name}`,
-              ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`]
-            }
-          }
-        ]
-      }
-    },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: [`.mdx`],
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 560,
-              quality: 70,
               sizeByPixelDensity: true
             }
           },

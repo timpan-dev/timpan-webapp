@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from "react"
 import styled from 'styled-components'
 import { pageWidth, primaryColor } from '~/utils/styling'
 import { Link, useStaticQuery, graphql } from "gatsby"
@@ -126,6 +126,39 @@ const FlexCol2Row = styled.div`
   }
 `
 
+const Typeform = styled.a`
+  display: inline-block;
+  text-decoration: none;
+  background-color: ${secondaryColor};
+  color: #ccc;
+  &:visited {
+    color: #ccc;
+  }
+  &:hover {
+    color: #fff;
+  }
+  &:active {
+    color: #fff;
+  }
+  cursor: pointer;
+  /* font-family: Helvetica, Arial, sans-serif; */
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+  margin: 20px auto 0;
+  height: 50px;
+  padding: 0px 33px;
+  border-radius: 25px;
+  max-width: 100%;
+  align-self: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+`
+
 const Footer: React.FC = () => {
   const data = useStaticQuery(graphql`
     query metadataForSubtitle {
@@ -138,6 +171,18 @@ const Footer: React.FC = () => {
       }
     }
   `)
+
+  useEffect(() => {
+    const script = document.createElement("script")
+    script.innerText =
+      '(function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm_share", b="https://embed.typeform.com/"; if(!gi.call(d,id)){ js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })()'
+    document.body.appendChild(script)
+    return () => {
+      if (script) {
+        document.body.removeChild(script)
+      }
+    }
+  }, [])
 
   return (
     <StyledFooter>
@@ -194,10 +239,19 @@ const Footer: React.FC = () => {
             </FlexRow>
           </FlexCol2Row>
         </FlexRow2Col>
-        <div className="copyright" style={{ alignSelf: `center` }}>
+        <FlexRow>
+          <Typeform
+            className="typeform-share button"
+            href="https://rpm42.typeform.com/to/Bg0RDg"
+            data-mode="popup"
+          >
+            Написать письмо
+          </Typeform>
+        </FlexRow>
+        <FlexRow className="copyright" style={{ alignSelf: `center` }}>
           © ТИМПАН, 2020
-        </div>
-      </FlexCol>
+        </FlexRow>
+      </FlexCol> 
     </StyledFooter>
   )
 }

@@ -7,17 +7,33 @@ import { usePlaylistContext } from "~/contexts/playlistContext"
 import Playlist from '~/components/Playlist'
 import { ITrack } from "~/types"
 import PlaylistProvider from '~/providers/PlaylistProvider'
+import YoutubeView from '~/components/YoutubeView'
 
 const SidebarDiv = styled.div`
 `
 
 interface ISidebarProps {
+  videoList: {
+    source: string
+    title: string
+  }[]
 }
 
-const Sidebar: React.FC<ISidebarProps> = () => {
+const VideoList = styled.div`
+  margin-top: 40px;
+`
+
+const VideoItem = styled.div`
+  h5 {
+    /* line-height: 18px; */
+    margin: 0;
+  }
+`
+
+const Sidebar: React.FC<ISidebarProps> = ({ videoList }) => {
   const {state, actions} = usePlaylistContext()
 
-  console.log("Sidebar render", state, actions)
+  console.log("Sidebar render", videoList, state, actions)
 
   return (
     <SidebarDiv>
@@ -29,6 +45,16 @@ const Sidebar: React.FC<ISidebarProps> = () => {
           height={300}
         />
       )}
+      <ReadMore height={500}>
+        <VideoList>
+          {videoList.map(videoEnt => {
+            return <VideoItem>
+              <YoutubeView link={videoEnt.source}></YoutubeView>
+                <h4><a href={videoEnt.source}>{videoEnt.title}</a></h4>
+              </VideoItem>
+            })}
+        </VideoList>
+      </ReadMore>
     </SidebarDiv>
   )
 }
@@ -50,6 +76,14 @@ const withData = (Component: React.FC<ISidebarProps>) => {
             }
           }
         }
+        allSidebarVideoYaml {
+          edges {
+            node {
+              video
+              title
+            }
+          }
+        }
       }
     `)
 
@@ -63,9 +97,19 @@ const withData = (Component: React.FC<ISidebarProps>) => {
         }
       }
     )
+
+    const videoList = sideabrAudioListQuery.allSidebarVideoYaml.edges.map(
+      (edge: any, index: number) => {
+        return {
+          index,
+          source: edge.node.video,
+          title: edge.node.title,
+        }
+      }
+    )
     return (
       <PlaylistProvider tracks={tracks}>
-        <Component></Component>
+        <Component videoList={videoList}></Component>
       </PlaylistProvider>
     )
   }
