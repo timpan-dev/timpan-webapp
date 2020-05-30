@@ -32,9 +32,7 @@ const VideoItem = styled.div`
 
 const Sidebar: React.FC<ISidebarProps> = ({ videoList }) => {
   const {state, actions} = usePlaylistContext()
-
-  console.log("Sidebar render", videoList, state, actions)
-
+  
   return (
     <SidebarDiv>
       {state.currentTrack && (
@@ -47,9 +45,9 @@ const Sidebar: React.FC<ISidebarProps> = ({ videoList }) => {
       )}
       <ReadMore height={500}>
         <VideoList>
-          {videoList.map(videoEnt => {
-            return <VideoItem>
-              <YoutubeView link={videoEnt.source}></YoutubeView>
+          {videoList.map((videoEnt, index) => {
+            return <VideoItem key={index}>
+                <YoutubeView link={videoEnt.source}/>
                 <h4><a href={videoEnt.source}>{videoEnt.title}</a></h4>
               </VideoItem>
             })}

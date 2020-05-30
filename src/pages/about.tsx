@@ -81,7 +81,6 @@ const TextCol = styled.div`
 `
 
 const AboutPage: React.FC<IAboutPageProps> = ({data}) => {
-  console.log(data)
   return (
     <Layout>
       <AboutContainer>

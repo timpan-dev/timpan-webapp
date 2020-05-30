@@ -59,13 +59,10 @@ const Overlay: React.FC<IOverlayProps> = ({
 
   useEffect(() => {
     function onEsc(e: KeyboardEvent) {
-      console.log('keydown', e)
       if (e.key === 'Escape') {
         closeOnEsc && onClose()
       }
     }
-
-    console.log('useEffect', closeOnEsc)
 
     document.addEventListener('keydown', onEsc)
 

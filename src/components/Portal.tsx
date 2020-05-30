@@ -32,8 +32,6 @@ const Portal: React.FC<IReactPortalProps> = ({ node, children }) => {
     }
   }, [node])
 
-  console.log(defaultNode)
-
   return ReactDOM.createPortal(children, defaultNode)
 }
 

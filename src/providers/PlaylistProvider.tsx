@@ -95,8 +95,6 @@ export class PlaylistReducer {
   protected reducer(state: IPlaylistState, action: AnyAction) {
     const self = this
 
-    console.log("playlist reducer", state, action)
-
     const { actions$ } = self
     switch (action.type) {
       case "SET_PLAYLIST": {

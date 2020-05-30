@@ -49,7 +49,6 @@ const PhotoPage: React.FC<IPhotoPageProps> = ({ data }) => {
     setViewerIsOpen(false)
   }
 
-  console.log(data, photos)
   return (
     <Layout>
       <Container>

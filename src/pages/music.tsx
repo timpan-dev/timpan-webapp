@@ -51,7 +51,6 @@ const InfoBlock = styled.section`
 `
 
 const MusicPage: React.FC<IMusicPageProps> = ({data}) => {
-  console.log(data)
   return (
     <Layout>
       <Container>
