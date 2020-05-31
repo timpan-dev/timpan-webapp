@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
-import Audio from '~/components/Audio'
 import ReadMore from '~/components/ReadMore'
-import { usePlaylistContext } from "~/contexts/playlistContext"
 import Playlist from '~/components/Playlist'
-import { ITrack } from "~/types"
 import PlaylistProvider from '~/providers/PlaylistProvider'
 import YoutubeView from '~/components/YoutubeView'
 
@@ -31,18 +28,10 @@ const VideoItem = styled.div`
 `
 
 const Sidebar: React.FC<ISidebarProps> = ({ videoList }) => {
-  const {state, actions} = usePlaylistContext()
   
   return (
     <SidebarDiv>
-      {state.currentTrack && (
-        <Playlist
-          currentTrack={state.currentTrack}
-          playlist={state.playlist}
-          setCurrentTrack={actions.setCurrentTrack}
-          height={300}
-        />
-      )}
+      <Playlist height={300} />
       <ReadMore height={500}>
         <VideoList>
           {videoList.map((videoEnt, index) => {

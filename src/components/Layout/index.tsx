@@ -14,7 +14,7 @@ import MenuSvg from '~/assets/menu.inline.svg'
 import CloseSvg from '~/assets/close.inline.svg'
 import { useAppContext } from '~/contexts/appContext'
 import MenuLink from './MenuLink'
-import SmallHead from '~/components/Head/SmallHead'
+import SmallHead from '~/components/SmallHead'
 
 const Main = styled.div`
   flex: 1;

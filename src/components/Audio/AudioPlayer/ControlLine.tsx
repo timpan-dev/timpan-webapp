@@ -7,7 +7,7 @@ const Line = styled.div`
   width: 100%;
   top: 0;
   left: 0;
-  height: 5px;
+  height: 10px;
   background: transparent;
   z-index: 11;
 `

@@ -49,14 +49,18 @@ export class PlaylistReducer {
   static initialState: IPlaylistState = {
     playlist: [],
     currentTrackIndex: null,
-    currentTrack: null
+    currentTrack: null,
+    playing: false
   }
 
   static initialActions: IPlaylistActions = {
     setPlaylist: playlist => {},
     setCurrentTrack: index => {},
     setNextTrack: () => {},
-    setPrevTrack: () => {}
+    setPrevTrack: () => {},
+    play: () => {},
+    pause: () => {},
+    toggle: () => {},
   }
 
   constructor(playlist: ITrack[]) {
@@ -65,7 +69,8 @@ export class PlaylistReducer {
         ? {
             playlist,
             currentTrack: playlist[0],
-            currentTrackIndex: 0
+            currentTrackIndex: 0,
+            playing: false
           }
         : PlaylistReducer.initialState
     this.state$ = new BehaviorSubject<IPlaylistState>(this.state)
@@ -97,6 +102,24 @@ export class PlaylistReducer {
 
     const { actions$ } = self
     switch (action.type) {
+      case "SET_PLAY": {
+        return {
+          ...state,
+          playing: true
+        }
+      }
+      case "SET_PAUSE": {
+        return {
+          ...state,
+          playing: false
+        }
+      }
+      case "SET_TOGGLE": {
+        return {
+          ...state,
+          playing: !state.playing
+        }
+      }
       case "SET_PLAYLIST": {
         const { playlist } = action as ISetPlaylistAction
         if (!playlist || playlist.length === 0) break
@@ -198,7 +221,10 @@ const PlaylistProvider: React.FC<IPlaylistProvider> = ({ tracks, children }) => 
       setPlaylist: playlist => dispatch({ type: "SET_PLAYLIST", playlist }),
       setCurrentTrack: index => dispatch({ type: "SET_CURRENT_TRACK", index }),
       setNextTrack: () => dispatch({ type: "SET_NEXT_TRACK" }),
-      setPrevTrack: () => dispatch({ type: "SET_PREV_TRACK" })
+      setPrevTrack: () => dispatch({ type: "SET_PREV_TRACK" }),
+      play: () => dispatch({ type: "SET_PLAY" }),
+      pause: () => dispatch({ type: "SET_PAUSE" }),
+      toggle: () => dispatch({ type: "SET_TOGGLE" })
     })
 
     return () => {

@@ -242,7 +242,7 @@ const Footer: React.FC = () => {
         <FlexRow>
           <Typeform
             className="typeform-share button"
-            href="https://rpm42.typeform.com/to/Bg0RDg"
+            href="https://rpm42.typeform.com/to/W641yu"
             data-mode="popup"
           >
             Написать письмо

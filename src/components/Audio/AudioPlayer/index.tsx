@@ -47,11 +47,29 @@ const Container = styled.div`
 
 const AudioPlayer: React.FC<IAudioPlayerProps> = ({ title, state, actions, ...props }) => {
   const plCtx = usePlaylistContext()
-  const { setNextTrack, setPrevTrack } = plCtx.actions
+  const { setNextTrack, setPrevTrack, toggle } = plCtx.actions
+
+  function onToggleClick() {
+    toggle()
+  }
+
+  useEffect(() => {
+    if (plCtx.state && actions && actions.play) {
+      plCtx.state.playing ? actions.play() : actions.pause()
+      console.log('useEffect plCtx.state.playing', plCtx.state.playing)
+    }
+  }, [plCtx.state.playing])
+
+  useEffect(() => {
+    if (plCtx.state.playing !== state.playing) {
+      plCtx.state.playing ? actions.play() : actions.pause()
+    }
+  }, [state])
+
   return (
     <Container {...props}>
       {title && <div className="title">{title}</div>}
-      <PlayButton playing={state.playing} onClick={() => actions.toggle()}></PlayButton>
+      <PlayButton playing={plCtx.state.playing} onClick={onToggleClick}></PlayButton>
       <div className="btn icon-player-prev" onClick={() => setPrevTrack() }></div>
       <div className="btn icon-player-next" onClick={() => setNextTrack() }></div>
       <Scrubber

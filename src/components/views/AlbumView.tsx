@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Img from 'gatsby-image'
-import { Link } from 'gatsby'
 import { IAlbum } from '~/types'
-import Audio from '~/components/Audio'
 import BackgroundImage from 'gatsby-background-image'
-import ReadMore from '~/components/ReadMore'
 import { useAppContext } from '~/contexts/appContext'
 import Playlist from '~/components/Playlist'
-import { usePlaylistContext } from '~/contexts/playlistContext'
 
 interface IAlbumViewProps {
   album: IAlbum
@@ -56,14 +51,6 @@ const StyledBackground = styled(BackgroundImage)`
   }
 `
 
-// const Playlist = styled.div`
-//   display: flex;
-//   width: 100%;
-//   flex-direction: column;
-//   align-items: stretch;
-//   margin-top: 30px;
-// `
-
 const InfoSection = styled.section`
   flex: 1 1;
 `
@@ -78,13 +65,8 @@ const Track = styled.div`
 `
 
 const AlbumView: React.FC<IAlbumViewProps> = ({ album }) => {
-
   const appCtx = useAppContext()
-  const plCtx = usePlaylistContext()
-
   const { pageWidth } = appCtx.state
-  const { currentTrack, playlist } = plCtx.state
-  const { setCurrentTrack } = plCtx.actions
 
   return (
     <Container>
@@ -96,12 +78,7 @@ const AlbumView: React.FC<IAlbumViewProps> = ({ album }) => {
           className="img"
           fixed={album.cover}
         />
-        <Playlist
-          currentTrack={currentTrack}
-          playlist={playlist}
-          setCurrentTrack={setCurrentTrack}
-          height={pageWidth >= 480 ? null : 300}
-        />
+        <Playlist height={pageWidth >= 480 ? null : 300} />
       </PlayerSection>
       <InfoSection>
         <header>

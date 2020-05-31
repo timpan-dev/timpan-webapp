@@ -8,7 +8,10 @@ import { AlbumsForPageQuery, IAlbum } from '~/types'
 import SmallAlbumView from '~/components/views/SmallAlbumView'
 import { formatAlbumFromData } from '~/utils/album'
 import SEO from '~/components/SEO'
-import { pageWidth, primaryColor, secondaryColor, brighten, darken, gapWidth } from '~/utils/styling'
+import { pageWidth, primaryColor, secondaryColor, brighten, darken, gapWidth, contentWidth } from '~/utils/styling'
+import { usePlaylistContext } from "~/contexts/playlistContext"
+import PlaylistProvider from '~/providers/PlaylistProvider'
+import Playlist from '~/components/Playlist'
 
 const Container = styled.div`
   display: flex;
@@ -65,6 +68,12 @@ const Tab = styled.div`
   }
 `
 
+const PlaylistContainer = styled.div`
+  max-width: ${contentWidth}px;
+  width: 100%;
+  margin: 0 auto 80px;
+`
+
 interface IAlbumListTemplateProps {
   data: AlbumsForPageQuery
 }
@@ -72,6 +81,17 @@ interface IAlbumListTemplateProps {
 const AlbumListTemplate: React.FC<IAlbumListTemplateProps> = ({ data }) => {
   const albums = data.allMarkdownRemark.edges.map(({node}, index) => formatAlbumFromData(node, index))
   const [activeTab, setActiveTab] = useState(0)
+
+  const tracks = data.allFile.edges.map(
+    (edge: any, index: number) => {
+      return {
+        index,
+        title: edge.node.name.split(" - ")[1].trim(),
+        src: edge.node.publicURL,
+        filesize: edge.node.size
+      }
+    }
+  )
 
   return (
     <Layout>
@@ -103,7 +123,13 @@ const AlbumListTemplate: React.FC<IAlbumListTemplateProps> = ({ data }) => {
             return <SmallAlbumView album={album} key={index} />
           })}
         </Main>
-        <Main className={activeTab === 1 ? "active" : null}>ToDO</Main>
+        <Main className={activeTab === 1 ? "active" : null}>
+          <PlaylistProvider tracks={tracks}>
+            <PlaylistContainer>
+              <Playlist />
+            </PlaylistContainer>
+          </PlaylistProvider>
+        </Main>
       </Container>
       <SEO></SEO>
     </Layout>
@@ -121,6 +147,19 @@ query albumsForPage {
     edges {
       node {
         ...AlbumDataFragment
+      }
+    }
+  }
+  allFile(
+    filter: { sourceInstanceName: { eq: "sidebar-audio" } }
+    sort: { fields: name }
+  ) {
+    edges {
+      node {
+        sourceInstanceName
+        publicURL
+        size
+        name
       }
     }
   }

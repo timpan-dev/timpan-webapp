@@ -31,7 +31,7 @@ const PostView: React.FC<IPostViewProps> = ({ post }) => {
 
   if (post.type === 'cover' && post.cover) {
     coverJsx = <div style={{ margin: '0 0 20px' }}>
-      <Img fluid={post.cover}></Img>
+      <Img fluid={post.cover} title="" alt=""></Img>
     </div>
   }
 
@@ -41,7 +41,7 @@ const PostView: React.FC<IPostViewProps> = ({ post }) => {
         components={{ Footer: null, View }}
         views={post.images.map((image) => ({
           ...image.image,
-          title: image.title
+          title: ""
         }))}
       />
     </div>

@@ -4,6 +4,7 @@ import styled from "styled-components"
 import Audio from "~/components/Audio"
 import ReadMore from "~/components/ReadMore"
 import { ITrack } from "~/types"
+import { usePlaylistContext } from "~/contexts/playlistContext"
 
 const Container = styled.div`
   width: 100% !important;
@@ -26,27 +27,31 @@ const Track = styled.div`
 `
 
 interface IPlaylistProps {
-  currentTrack?: ITrack
-  playlist: ITrack[]
-  setCurrentTrack?: (index: number) => void
   height?: number
 }
 
 const Playlist: React.FC<IPlaylistProps> = ({
-  currentTrack,
-  playlist,
-  setCurrentTrack,
   height
 }) => {
+  const { state, actions } = usePlaylistContext()
+
+  const {currentTrack, playlist} = state
+  const { setCurrentTrack, play} = actions
+
+  function onTrackClick(track: ITrack) {
+    if (setCurrentTrack && track.index !== null) {
+      setCurrentTrack(track.index)
+      play()
+    }
+  }
+
   const playlistJsx = (
     <PlaylistDiv>
       {playlist && playlist.map((track: any, index: number) => {
         return (
           <Track
             key={index}
-            onClick={
-              setCurrentTrack && track.index !== null && (() => setCurrentTrack(track.index))
-            }
+            onClick={() => onTrackClick(track)}
           >
             {track.title}
           </Track>

@@ -176,6 +176,7 @@ export interface IPlaylistState {
   playlist: ITrack[]
   currentTrack: ITrack
   currentTrackIndex: number
+  playing: boolean
 }
 
 export interface IPlaylistActions {
@@ -183,4 +184,7 @@ export interface IPlaylistActions {
   setCurrentTrack: (index: number) => void
   setNextTrack: () => void
   setPrevTrack: () => void
+  play: () => void
+  pause: () => void
+  toggle: () => void
 }
