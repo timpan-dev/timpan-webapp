@@ -17,15 +17,20 @@ const Container = styled.article`
   flex-flow: column;
   align-items: stretch;
   h2 {
-    font-weight: 300;
-    margin: 0 0 30px;
+    text-align: center;
+    color: ${secondaryColor};
+    margin: 40px 0 40px;
+  }
+  p.page-desc {
+    font-size: 21px;
+    color: ${secondaryColor};
   }
 `
 
 const Article = styled.section`
   display: flex;
   flex-flow: row;
-  margin: 0 0 20px;
+  margin: 40px 0 20px;
   @media (max-width: 420px) {
     flex-flow: column;
     margin: 0 10px 20px;
@@ -54,7 +59,10 @@ const MusicPage: React.FC<IMusicPageProps> = ({data}) => {
   return (
     <Layout>
       <Container>
-        <h2>В этом разделе вы можете скачать ноты наших песен</h2>
+        <h2>Ноты</h2>
+
+        <p className="page-desc">Мы рады предложить Вашему вниманию нотный сборник с избранными песенными композициями и молитвами. Рекомендуется для использования в факультативных программах музыкальных и воскресных школ.</p>
+
         {data.allMusicFilesYaml.edges.map((edge: any, index: number) => {
           return (
             <Article key={index}>
