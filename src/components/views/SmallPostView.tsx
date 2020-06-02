@@ -41,8 +41,9 @@ const SmallPostView: React.FC<ISmallPostViewProps> = ({ post }) => {
   }
 
   if (post.type === 'image' && post.images) {
-    imagesJsx = <div style={{ margin: '0 0 20px' }}>
+    imagesJsx = <div style={{ margin: '0 0 20px', background: `#222` }}>
       <Carousel
+
         components={{ Footer: null, View }}
         views={post.images.map((image) => ({
           ...image.image,

@@ -5,6 +5,7 @@ import Audio from "~/components/Audio"
 import ReadMore from "~/components/ReadMore"
 import { ITrack } from "~/types"
 import { usePlaylistContext } from "~/contexts/playlistContext"
+import { secondaryColor } from '~/utils/styling'
 
 const Container = styled.div`
   width: 100% !important;
@@ -52,6 +53,7 @@ const Playlist: React.FC<IPlaylistProps> = ({
           <Track
             key={index}
             onClick={() => onTrackClick(track)}
+            style={state.currentTrackIndex === track.index ? { color: secondaryColor, fontWeight: 400}: {}}
           >
             {track.title}
           </Track>

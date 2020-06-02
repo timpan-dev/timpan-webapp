@@ -17,7 +17,7 @@ module.exports = {
       "тимпан новости"
     ].join(", "),
     lang: "ru",
-    postsPerPage: 10,
+    postsPerPage: 5,
     siteUrl: `https://timpan-team.web.app`,
     youtubeUrl: `https://www.youtube.com/channel/UCGLXZ38NNq36ecv4N7caU9Q`,
     instagramUrl: `https://instagram.com/timpan.by`,
