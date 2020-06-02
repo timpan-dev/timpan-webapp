@@ -77,6 +77,8 @@ const Head: React.FC = () => {
     }
   `)
 
+  console.log('render')
+
   return (
     <Wrapper>
       <BackgroundImage

@@ -64,7 +64,18 @@ const AudioPlayer: React.FC<IAudioPlayerProps> = ({ title, state, actions, ...pr
     if (plCtx.state.playing !== state.playing) {
       plCtx.state.playing ? actions.play() : actions.pause()
     }
-  }, [state])
+  }, [state.downloadUrl])
+
+  useEffect(() => {
+    if (state.ended) {
+      const { currentTrackIndex, playlist } = plCtx.state
+      if (currentTrackIndex === playlist.length - 1) {
+        plCtx.actions.pause()
+      } else {
+        plCtx.actions.setNextTrack()
+      }
+    }
+  }, [state.ended])
 
   return (
     <Container {...props}>

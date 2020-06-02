@@ -13,6 +13,7 @@ export interface IAudioState {
   canPlayThrough: boolean
   downloadUrl?: string
   filesize?: number
+  ended?: boolean
 }
 
 export interface IAudioActions {
