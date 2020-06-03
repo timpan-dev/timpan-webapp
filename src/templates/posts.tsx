@@ -52,7 +52,7 @@ const TabBar = styled.div`
   display: flex;
   flex-direction: row;
   margin: 50px 0;
-  @media (min-width: 700px) {
+  @media (min-width: 701px) {
     display: none;
   }
 `
@@ -84,7 +84,7 @@ const Tab = styled.div`
     &:hover { color: ${ brighten(primaryColor)} !important; }
     &:active { color: ${ darken(primaryColor) } !important; }
   }
-  @media (min-width: 700px) {
+  @media (min-width: 701px) {
     display: none;
   }
 `

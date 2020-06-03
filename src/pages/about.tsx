@@ -19,7 +19,7 @@ interface IAboutPageProps {
 
 const AboutContainer = styled.div`
   margin: 20px auto;
-  max-width: ${ contentWidth }px;
+  max-width: ${ pageWidth }px;
   h2 {
     /* font-size: 40px; */
     text-align: center;
@@ -27,9 +27,16 @@ const AboutContainer = styled.div`
     margin: 40px 0 40px;
   }
   p {
-    font-size: 17px;
+    font-size: 22px;
+    line-height: 33px;
   }
-  @media(max-width: ${contentWidth + 20}px) {
+  @media(max-width: 560px) {
+    p {
+      font-size: 19px;
+      line-height: 28px;
+    }
+  }
+  @media(max-width: ${pageWidth + 20}px) {
     padding: 0 10px;
   }
 
@@ -45,17 +52,26 @@ const Row = styled.div`
   flex-flow: row nowrap;
   width: 100%;
   margin-bottom: 80px;
+  p {
+    text-align: left;
+  }
   &.reverse {
     flex-direction: row-reverse;
     p {
       text-align: right;
     }
   }
-  @media(max-width: 420px) {
+  @media(max-width: 480px) {
     flex-direction: column;
     align-items: center;
     &.reverse {
       flex-direction: column;
+      p {
+        text-align: center;
+      }
+    }
+    p {
+      text-align: center;
     }
   }
 `
@@ -77,7 +93,11 @@ const Gap = styled.div`
   flex: 0 1 30px;
 `
 const TextCol = styled.div`
-  flex: 1 2 auto; 
+  flex: 1 2 auto;
+  max-width: 400px;
+  &.w600 {
+    max-width: 600px;
+  }
 `
 
 const AboutPage: React.FC<IAboutPageProps> = ({data}) => {
@@ -142,7 +162,7 @@ const AboutPage: React.FC<IAboutPageProps> = ({data}) => {
           </ImgCol>
           <Gap></Gap>
           <TextCol>
-            <p style={{textAlign: 'left'}}>
+            <p>
               <strong>Звукорежиссёр</strong> – В.А. Саулич, лауреат республиканского конкурса исполнителей.
             </p>
           </TextCol>
@@ -150,8 +170,8 @@ const AboutPage: React.FC<IAboutPageProps> = ({data}) => {
         </Row>
         <Row>
           <Gap></Gap>
-          <TextCol>
-            <p style={{ textAlign: 'left' }}>
+          <TextCol className="w600">
+            <p>
               <strong>Режиссёр</strong> – З.А. Павловская, режиссёр детской редакции Белтелерадиокомпании.
             </p>
           </TextCol>
@@ -599,14 +619,14 @@ export const query = graphql`
   query QueryAboutPageImages {
     top: file(relativePath: {eq: "about/top.jpg"}, sourceInstanceName: {eq: "assets"}) {
       childImageSharp {
-        fluid(maxWidth: 880, quality: 85) {
+        fluid(maxWidth: 882, quality: 85) {
           ...GatsbyImageSharpFluid_tracedSVG
         }
       }
     }
     bottom: file(relativePath: {eq: "about/bottom.jpg"}, sourceInstanceName: {eq: "assets"}) {
       childImageSharp {
-        fluid(maxWidth: 880, quality: 85) {
+        fluid(maxWidth: 882, quality: 85) {
           ...GatsbyImageSharpFluid_tracedSVG
         }
       }

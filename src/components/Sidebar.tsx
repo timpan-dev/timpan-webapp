@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, { CSSProperties, useRef, useEffect, useState, useMemo } from "react"
 import { useStaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 import ReadMore from '~/components/ReadMore'
 import Playlist from '~/components/Playlist'
 import PlaylistProvider from '~/providers/PlaylistProvider'
 import YoutubeView from '~/components/YoutubeView'
+import { sidebarWidth } from '~/utils/styling'
+import { useAppContext } from "~/contexts/appContext"
 
 const SidebarDiv = styled.div`
 `
@@ -28,20 +30,18 @@ const VideoItem = styled.div`
 `
 
 const Sidebar: React.FC<ISidebarProps> = ({ videoList }) => {
-  
+  const appCtx = useAppContext()
   return (
     <SidebarDiv>
-      <Playlist height={300} />
-      <ReadMore height={500}>
-        <VideoList>
-          {videoList.map((videoEnt, index) => {
-            return <VideoItem key={index}>
-                <YoutubeView link={videoEnt.source}/>
-                <h4><a href={videoEnt.source}>{videoEnt.title}</a></h4>
-              </VideoItem>
-            })}
-        </VideoList>
-      </ReadMore>
+      <Playlist height={appCtx.state.pageWidth <= 700 ? 300 : undefined} />
+      <VideoList>
+        {videoList.map((videoEnt, index) => {
+          return <VideoItem key={index}>
+            <YoutubeView link={videoEnt.source} />
+            <h4><a href={videoEnt.source}>{videoEnt.title}</a></h4>
+          </VideoItem>
+        })}
+      </VideoList>
     </SidebarDiv>
   )
 }

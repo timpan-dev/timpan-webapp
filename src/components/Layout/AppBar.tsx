@@ -46,7 +46,7 @@ const AppBar: React.FC = ({ children }) => {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  })
+  }, [])
 
   return (
     <Wrapper fixed={fixed}>

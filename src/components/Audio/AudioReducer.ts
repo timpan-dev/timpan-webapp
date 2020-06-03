@@ -70,6 +70,7 @@ export default class AudioReducer {
     canPlayThrough: false,
     downloadUrl: null,
     filesize: undefined,
+    ended: false
   }
 
   static initialActions: IAudioActions = {
@@ -117,7 +118,7 @@ export default class AudioReducer {
     const { player, actions$ } = self
     switch (action.type) {
       case 'INIT':
-        return { ...state, downloadUrl: self.src, filesize: self.size, initialized: true}
+        return { ...state, downloadUrl: self.src, filesize: self.size, initialized: true, ended: false}
       case 'PLAY':
         player.play()
         break
@@ -155,6 +156,9 @@ export default class AudioReducer {
         return { ...state, playing: false }
       case 'E_TIME_UPDATE':
         return { ...state, position: player.position }
+      case 'E_ENDED':
+        console.log('E_ENDED')
+        return { ...state, ended: true }
       case 'SET_POSITION':
         const { position } = action as ISetPositionAction
         this.player.setPosition(position)
@@ -277,6 +281,12 @@ class AudioWrapper {
     this.subscription.add(
       fromEvent(audio, 'progress')
         .pipe(mapTo({ type: 'E_PROGRESS' }))
+        .subscribe(actions$)
+    )
+
+    this.subscription.add(
+      fromEvent(audio, 'ended')
+        .pipe(mapTo({ type: 'E_ENDED' }))
         .subscribe(actions$)
     )
 
