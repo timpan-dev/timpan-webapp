@@ -61,7 +61,9 @@ const MusicPage: React.FC<IMusicPageProps> = ({data}) => {
       <Container>
         <h2>Ноты</h2>
 
-        <p className="page-desc">Мы рады предложить Вашему вниманию нотный сборник с избранными песенными композициями и молитвами. Рекомендуется для использования в факультативных программах музыкальных и воскресных школ.</p>
+        <p className="page-desc">
+          Мы рады предложить Вашему вниманию нотный сборник с избранными песенными композициями и молитвами. 
+          Рекомендуется для использования в факультативных программах музыкальных и воскресных школ.</p>
 
         {data.allMusicFilesYaml.edges.map((edge: any, index: number) => {
           return (
@@ -91,23 +93,23 @@ export default MusicPage
 
 export const query = graphql`
   query queryMusicFiles {
-  allMusicFilesYaml {
-    edges {
-      node {
-        title
-        desc
-        cover {
-          childImageSharp {
-            fixed(width: 200, quality: 50) {
-              ...GatsbyImageSharpFixed_tracedSVG
+    allMusicFilesYaml(sort: {fields: title}) {
+      edges {
+        node {
+          title
+          desc
+          cover {
+            childImageSharp {
+              fixed(width: 200, quality: 50) {
+                ...GatsbyImageSharpFixed_tracedSVG
+              }
             }
           }
-        }
-        attachment {
-          publicURL
+          attachment {
+            publicURL
+          }
         }
       }
     }
   }
-}
 `
