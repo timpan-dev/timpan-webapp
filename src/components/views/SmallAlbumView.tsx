@@ -11,23 +11,19 @@ interface ISmallAlbumViewProps {
 }
 
 const AlbumContainer = styled.article`
-  flex: 1 1 calc(100% - 16px);
-  width: calc(100% - 16px);
-  margin: 0 auto 20px;
+  flex: 1 1 100%;
+  margin: 0 0 20px;
   display: flex;
   max-width: 320px;
   flex-direction: column;
-  /* justify-content: space-between; */
+  padding: 0 10px;
   @media (min-width: 480px) {
-    flex: 1 1 calc(50% - 20px);
-    width: calc(50% - 20px);
-    margin: 0 10px 20px;
+    flex: 1 1 ${100 / 2}%;
+    max-width: ${100 / 2}%;
   }
-
   @media (min-width: 720px) {
-    flex: 1 1 calc(33% - 16px);
-    width: calc(33% - 16px);
-    margin: 0 8px 20px;
+    flex: 1 1 ${100 / 3}%;
+    max-width: ${100 / 3}%;
   }
   .img {
     width: 100%;
