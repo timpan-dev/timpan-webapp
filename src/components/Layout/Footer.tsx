@@ -174,6 +174,7 @@ const Footer: React.FC = () => {
 
   useEffect(() => {
     const script = document.createElement("script")
+    script.setAttribute('rel', 'preconnect')
     script.innerText =
       '(function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm_share", b="https://embed.typeform.com/"; if(!gi.call(d,id)){ js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })()'
     document.body.appendChild(script)
@@ -224,23 +225,20 @@ const Footer: React.FC = () => {
               <a
                 rel="nofollow"
                 href={data.site.siteMetadata.vkUrl}
-                className="icon-soc-vk"
-              ></a>
+              ><span className="icon-soc-vk"></span></a>
               <a
                 rel="nofollow"
                 href={data.site.siteMetadata.youtubeUrl}
-                className="icon-soc-youtube"
-              ></a>
+              ><span className="icon-soc-youtube"></span></a>
               <a
                 rel="nofollow"
                 href={data.site.siteMetadata.instagramUrl}
-                className="icon-soc-instagram"
-              ></a>
+              ><span className="icon-soc-instagram"></span></a>
             </FlexRow>
           </FlexCol2Row>
         </FlexRow2Col>
         <FlexRow>
-          <Typeform
+          <Typeform rel="preconnect"
             className="typeform-share button"
             href="https://rpm42.typeform.com/to/W641yu"
             data-mode="popup"

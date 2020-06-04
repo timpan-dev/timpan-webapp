@@ -99,7 +99,7 @@ const MenuButton = styled.div`
   }
 `
 
-const HMenu = styled.ul`
+const HMenu = styled.div`
   padding: 0;
   margin: 0;
   list-style: none;
@@ -111,7 +111,7 @@ const HMenu = styled.ul`
   flex-wrap: nowrap;
 `
 
-const HMenuItem = styled.li`
+const HMenuItem = styled.div`
   margin-top: 2px;
   flex: 0 1 auto;
   color: ${primaryColor};
