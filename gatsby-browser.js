@@ -5,6 +5,7 @@ export const onInitialClientRender = () => {
   const link = document.createElement('link')
   link.rel = 'stylesheet'
   link.href = googleFontLink
+  link.async = true
   document.head.appendChild(link)
 }
 

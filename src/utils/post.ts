@@ -17,7 +17,7 @@ export const PostDataFragment = graphql`
       cover {
         childImageSharp {
           fluid(maxWidth: 580, quality: 85) {
-            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
@@ -26,7 +26,7 @@ export const PostDataFragment = graphql`
           source {
             childImageSharp {
               fluid(maxWidth: 580, quality: 85) {
-                ...GatsbyImageSharpFluid
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }

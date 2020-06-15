@@ -157,7 +157,6 @@ export default class AudioReducer {
       case 'E_TIME_UPDATE':
         return { ...state, position: player.position }
       case 'E_ENDED':
-        console.log('E_ENDED')
         return { ...state, ended: true }
       case 'SET_POSITION':
         const { position } = action as ISetPositionAction
@@ -189,7 +188,9 @@ class AudioWrapper {
     const { actions$ } = self
     const audio = new Audio()
     audio.preload = 'metadata'
-    audio.src = src
+    if (src) {
+      audio.src = src
+    }
 
     this.subscription.add(
       fromEvent(audio, 'load')

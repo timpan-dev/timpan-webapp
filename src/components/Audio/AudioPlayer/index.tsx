@@ -56,7 +56,6 @@ const AudioPlayer: React.FC<IAudioPlayerProps> = ({ title, state, actions, ...pr
   useEffect(() => {
     if (plCtx.state && actions && actions.play) {
       plCtx.state.playing ? actions.play() : actions.pause()
-      console.log('useEffect plCtx.state.playing', plCtx.state.playing)
     }
   }, [plCtx.state.playing])
 

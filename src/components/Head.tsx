@@ -70,14 +70,12 @@ const Head: React.FC = () => {
       file(relativePath: { eq: "head.jpg" }) {
         childImageSharp {
           fluid(maxWidth: 880, maxHeight: 600, quality: 85) {
-            ...GatsbyImageSharpFluid_tracedSVG
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
         }
       }
     }
   `)
-
-  console.log('render')
 
   return (
     <Wrapper>

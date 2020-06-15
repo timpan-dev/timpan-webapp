@@ -620,14 +620,14 @@ export const query = graphql`
     top: file(relativePath: {eq: "about/top.jpg"}, sourceInstanceName: {eq: "assets"}) {
       childImageSharp {
         fluid(maxWidth: 882, quality: 85) {
-          ...GatsbyImageSharpFluid_tracedSVG
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
     bottom: file(relativePath: {eq: "about/bottom.jpg"}, sourceInstanceName: {eq: "assets"}) {
       childImageSharp {
         fluid(maxWidth: 882, quality: 85) {
-          ...GatsbyImageSharpFluid_tracedSVG
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
@@ -639,7 +639,7 @@ export const query = graphql`
         node {
           childImageSharp {
             fixed(width: 200, height: 200, quality: 85) {
-              ...GatsbyImageSharpFixed_tracedSVG
+              ...GatsbyImageSharpFixed_withWebp_tracedSVG
             }
           }
         }
