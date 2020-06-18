@@ -17,7 +17,6 @@ const AlbumContainer = styled.article`
   max-width: 320px;
   flex-direction: column;
   padding: 0 10px;
-  align-self: center;
   margin: 0 auto;
   @media (min-width: 480px) {
     flex: 1 1 ${100 / 2}%;
