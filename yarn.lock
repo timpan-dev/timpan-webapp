@@ -7368,6 +7368,11 @@ gatsby-plugin-typescript@^2.3.1:
     "@babel/runtime" "^7.8.7"
     babel-plugin-remove-graphql-queries "^2.8.5"
 
+gatsby-plugin-yandex-metrika@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-yandex-metrika/-/gatsby-plugin-yandex-metrika-2.4.0.tgz#12601fe47dfb664f21f4a429adcaba782500ab12"
+  integrity sha512-zm/B+nQ8SU7oH4jGHHH8vvaZ7fLlK2EhIMvDXwr5Ki2V+CQ594cXJp8PDmGLY+rVgBsHUIj3vgMn+iR7cPZUcg==
+
 gatsby-react-router-scroll@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/gatsby-react-router-scroll/-/gatsby-react-router-scroll-2.2.3.tgz#2f7198f1488c3f90079e027537b4e40709caf2a3"

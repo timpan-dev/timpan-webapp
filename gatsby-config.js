@@ -111,6 +111,14 @@ module.exports = {
         ]
       }
     },
+    {
+      resolve: `gatsby-plugin-yandex-metrika`,
+      options: {
+        trackingId: '64890262',
+        webvisor: false,
+        trackHash: false,
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-graphql-codegen`,
     //   options: {
