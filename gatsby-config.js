@@ -18,7 +18,7 @@ module.exports = {
     ].join(", "),
     lang: "ru",
     postsPerPage: 5,
-    siteUrl: `https://timpan-team.web.app`,
+    siteUrl: `https://timpan.by`,
     youtubeUrl: `https://www.youtube.com/channel/UCGLXZ38NNq36ecv4N7caU9Q`,
     instagramUrl: `https://instagram.com/timpan.by`,
     vkUrl: `https://vk.com/public_timpan`
@@ -137,6 +137,14 @@ module.exports = {
           include: /\.inline\.svg$/ // See below to configure properly
         }
       }
-    }
+    },
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        sitemap: 'https://timpan.by/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
   ]
 }

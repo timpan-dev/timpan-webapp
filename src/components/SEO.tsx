@@ -30,7 +30,7 @@ const SEO: React.FC<ISEOProps> = props => {
     ...defaultProps,
     ...props
   }
-  const { site } = useStaticQuery(
+  const data = useStaticQuery(
     graphql`
       query siteMetadataForSEO {
         site {
@@ -39,11 +39,28 @@ const SEO: React.FC<ISEOProps> = props => {
             description
             author
             keywords
+            siteUrl
+          }
+        }
+        file(relativePath: { eq: "site-cover.jpg" }) {
+          childImageSharp {
+            fixed(width: 1760, height: 1200, quality: 85) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+        cover: file(relativePath: { eq: "site-cover.png" }) {
+          childImageSharp {
+            fixed(width: 960, height: 540) {
+              ...GatsbyImageSharpFixed
+            }
           }
         }
       }
     `
   )
+
+  const { site } = data
 
   const siteTitle = title
     ? `${title} | ${site.siteMetadata.title}`
@@ -101,6 +118,22 @@ const SEO: React.FC<ISEOProps> = props => {
         {
           name: "robots",
           content: robots
+        },
+        {
+          property: `og:image`,
+          content: data.cover.childImageSharp.fixed.src
+        },
+        {
+          property: `og:image:width`,
+          content: data.cover.childImageSharp.fixed.width
+        },
+        {
+          property: `og:image:height`,
+          content: data.cover.childImageSharp.fixed.height
+        },
+        {
+          property: `og:url`,
+          content: `${site.siteMetadata.siteUrl}`
         }
       ].concat(meta)}
     >
