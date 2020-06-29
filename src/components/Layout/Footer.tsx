@@ -197,16 +197,16 @@ const Footer: React.FC = () => {
                 <br />
                 Владимир Казбанов:
                 <br />
-                +375 44 799-73-66 (A1)
+               <a href="tel:+375447997366">+375(44)799-73-66 (A1)</a>
               </div>
               <div className="contact" style={{ flex: `1` }}>
                 <strong>Хормейстер и руководитель</strong>
                 <br />
                 Ольга Кривошеева:
                 <br />
-                +375 29 181-65-85 (A1)
+                <a href="tel:+375291816585">+375(29)181-65-85 (A1)</a>
                 <br />
-                E-mail: timpan@list.ru
+                E-mail: <a href="mailto:timpan@list.ru">timpan@list.ru</a>
               </div>
             </FlexRow>
           </FlexCol>
