@@ -42,7 +42,7 @@ const AlbumTemplate: React.FC<IAlbumTemplateProps> = ({ data }) => {
           </PlaylistProvider>
         </Main>
       </Container>
-      <SEO></SEO>
+      <SEO title={album.title} description={`Описание альбома «${album.title}»`}></SEO>
     </Layout>
   )
 }
